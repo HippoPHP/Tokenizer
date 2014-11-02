@@ -1,2 +1,5 @@
-Tokenizer
-=========
+# Tokenizer
+
+# License
+
+[MIT](/LICENSE.md)
