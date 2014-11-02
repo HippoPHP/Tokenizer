@@ -12,13 +12,13 @@
 >
     <testsuites>
         <testsuite name="Tokenizer Test Suite">
-            <directory>./tests/Tokenizer/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
     
     <filter>
         <whitelist>
-            <directory suffix=".php">./src/Tokenizer/</directory>
+            <directory suffix=".php">./src/</directory>
         </whitelist>
     </filter>
 

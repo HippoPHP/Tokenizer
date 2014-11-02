@@ -4,6 +4,6 @@
 
 	class Tokenizer {
 		public function __construct() {
-			
+			return $this;	
 		}
 	}

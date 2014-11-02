@@ -33,8 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "HippoPHP\\Tokenizer\\": "src",
-            "HippoPHP\\Tokenizer\\Tests\\": "tests"
+            "HippoPHP\\Tokenizer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HippoPHP\\Tokenizer\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
