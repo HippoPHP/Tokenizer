@@ -4,7 +4,7 @@
 
 	use \HippoPHP\Tokenizer\Token;
 
-	class TokenizerTest extends \PHPUnit_Framework_TestCase {
+	class TokenTest extends \PHPUnit_Framework_TestCase {
 		public function testNewInstance() {
 			$this->assertInstanceOf('\HippoPHP\Tokenizer\Token', new Token);
 		}
