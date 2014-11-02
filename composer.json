@@ -32,9 +32,9 @@
         "source": "https://github.com/hippophp/tokenizer"
     },
     "autoload": {
-        "psr-0": {
-            "Hippo\\": "src/",
-            "Hippo\\Tests\\": "tests/"
+        "psr-4": {
+            "HippoPHP\\Tokenizer\\": "src",
+            "HippoPHP\\Tokenizer\\Tests\\": "tests"
         }
     },
     "minimum-stability": "dev",
