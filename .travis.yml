@@ -18,3 +18,6 @@ before_script:
 script:
   - vendor/bin/phpunit --verbose --coverage-text
   - ./vendor/bin/phpcs --standard=PSR1 -p --report=full --report-checkstyle=build/logs/checkstyle.xml src/ tests/
+
+after_script:
+  - CODECLIMATE_REPO_TOKEN=c516a4c44c139ddea9f806cbbde761cd4278f28161c8ea760e6f0b9a34073c84 ./vendor/bin/test-reporter
