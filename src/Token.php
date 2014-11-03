@@ -28,12 +28,6 @@
 		protected $column;
 
 		/**
-		 * Token nest level.
-		 * @var int
-		 */
-		protected $level;
-
-		/**
 		 * Creates a new Token.
 		 * @param mixed $type
 		 * @param string $lexeme
@@ -80,24 +74,6 @@
 		 */
 		public function getColumn() {
 			return $this->column;
-		}
-
-		/**
-		 * Set the nested level of the token.
-		 * @param int $level
-		 * @return Token
-		 */
-		public function setLevel($level) {
-			$this->level = $level;
-			return $this;
-		}
-
-		/**
-		 * Get the nested level of the token.
-		 * @return int
-		 */
-		public function getLevel() {
-			return $this->level;
 		}
 
 		/**

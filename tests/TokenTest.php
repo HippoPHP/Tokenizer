@@ -27,15 +27,6 @@
 			$this->assertEquals(1, $this->token->getColumn());
 		}
 
-		public function testSetLevel() {
-			$token = $this->token->setLevel(1);
-			$this->assertInstanceOf('\HippoPHP\Tokenizer\Token', $token);
-		}
-
-		public function testGetLevel() {
-			$this->assertEquals(0, $this->token->getLevel());
-		}
-
 		public function testHasNewLineNoNewLine() {
 			$this->assertFalse($this->token->hasNewLine());
 		}
