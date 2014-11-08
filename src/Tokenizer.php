@@ -95,6 +95,11 @@
 					'null', 'NULL'
 				]),
 
+				TokenType::TOKEN_BOOLEAN => new StringMatcher([
+					'true', 'TRUE',
+					'false', 'FALSE',
+				]),
+
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
 				TokenType::TOKEN_OPERATOR => new StringMatcher([
 					'@',
