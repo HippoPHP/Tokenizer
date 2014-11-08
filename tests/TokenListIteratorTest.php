@@ -65,9 +65,25 @@
 			$this->assertFalse($this->tokenList->valid());
 		}
 
+		/**
+		 * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
+		 */
+		public function testGetInvalid() {
+			$this->tokenList->seek(count($this->tokenList) - 1);
+			$this->tokenList->next();
+			$this->tokenList->current();
+		}
+
 		public function testSeekToType() {
 			$seekToken = new Token(TokenType::TOKEN_WHITESPACE, "\t", 2, 1);
 			$this->assertEquals($seekToken, $this->tokenList->seekToType(TokenType::TOKEN_WHITESPACE));
+		}
+
+		public function testSeekBackwards() {
+			$this->tokenList->seek(3);
+			$actualToken = $this->tokenList->seekToType(TokenType::TOKEN_WHITESPACE, TokenListIterator::DIR_BACKWARD);
+			$this->assertNotNull($actualToken);
+			$this->assertEquals(TokenType::TOKEN_WHITESPACE, $actualToken->getType());
 		}
 
 		/**

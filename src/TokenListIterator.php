@@ -27,7 +27,7 @@
 		 */
 		public function seek($position) {
 			if (!isset($this->_tokens[$position])) {
-				$this->_throwOutOfBoundsException($position);
+				throw $this->_getOutOfBoundsException($position);
 			}
 
 			$this->_position = $position;
@@ -108,7 +108,7 @@
 		 */
 		public function current() {
 			if (!isset($this->_tokens[$this->_position])) {
-				$this->_throwOutOfBoundsException();
+				throw $this->_getOutOfBoundsException();
 			}
 			return $this->_tokens[$this->_position];
 		}
@@ -157,7 +157,7 @@
 				$this->_move($direction);
 
 				if (!$this->valid()) {
-					$this->_throwOutOfBoundsException();
+					throw $this->_getOutOfBoundsException();
 				}
 			}
 		}
@@ -176,12 +176,12 @@
 		}
 
 		/**
-		 * Throws OutOfBoundsException based on current position within the iterator.
+		 * Returns OutOfBoundsException based on current position within the iterator.
 		 * @param int|null $position
-		 * @return void
+		 * @return OutOfBoundsException
 		 */
-		private function _throwOutOfBoundsException($position = null) {
-			throw new OutOfBoundsException(
+		private function _getOutOfBoundsException($position = null) {
+			return new OutOfBoundsException(
 				sprintf(
 					'Invalid token position (%d)',
 					$position !== null ? $position : $this->_position
