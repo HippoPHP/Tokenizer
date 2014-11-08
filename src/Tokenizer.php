@@ -58,7 +58,7 @@
 				TokenType::TOKEN_SEMICOLON => new StringMatcher(';'),
 				TokenType::TOKEN_COMMA => new StringMatcher(','),
 				TokenType::TOKEN_BACKSLASH => new StringMatcher('\\'),
-				TokenType::TOKEN_VARIABLE => new RegexMatcher('\$\w+'),
+				TokenType::TOKEN_VARIABLE => new RegexMatcher('\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'),
 				TokenType::TOKEN_KEYWORD => new StringMatcher([
 					'namespace', 'use',
 					'class', 'trait', 'function',
