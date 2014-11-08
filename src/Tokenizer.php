@@ -62,6 +62,7 @@
 				TokenType::TOKEN_KEYWORD => new StringMatcher([
 					'namespace', 'use',
 					'class', 'trait', 'function',
+					'abstract', 'extends', 'implements',
 					'if', 'else', 'elseif',
 					'for', 'foreach',
 					'do', 'while',
