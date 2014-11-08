@@ -6,7 +6,7 @@
 
 	class StringMatcherTest extends \PHPUnit_Framework_TestCase {
 		public function testReturnsThis() {
-			$stringMatcher = new StringMatcher('a');
+			$stringMatcher = new StringMatcher(['a', 'b', 'c']);
 			$this->assertInstanceOf('\HippoPHP\Tokenizer\Matchers\StringMatcher', $stringMatcher);
 		}
 
