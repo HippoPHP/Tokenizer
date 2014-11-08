@@ -108,6 +108,9 @@
 		 * @return \HippoPHP\Tokenizer\Token
 		 */
 		public function current() {
+			if (!isset($this->_tokens[$this->_position])) {
+				throw new OutOfBoundsException(sprintf('Invalid token position (%d)', $this->_position));
+			}
 			return $this->_tokens[$this->_position];
 		}
 
