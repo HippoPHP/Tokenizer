@@ -47,6 +47,8 @@
 		private function _buildMatchers() {
 			$this->matchers = [
 				TokenType::TOKEN_QUOTED_STRING => new RegexMatcher('(["\'])(?:(?!\1)[^\\\]|\\\.)*\1'),
+				TokenType::TOKEN_BIG_COMMENT => new RegexMatcher('\/\*.*\*\/'),
+				TokenType::TOKEN_SMALL_COMMENT => new RegexMatcher('\/\/.*$'),
 				TokenType::TOKEN_OPEN_TAG => new StringMatcher(['<?php', '<?=', '<?', '<%']),
 				TokenType::TOKEN_EOL => new RegexMatcher('[\r\n]+'),
 				TokenType::TOKEN_WHITESPACE => new RegexMatcher('[ \t]+'),
