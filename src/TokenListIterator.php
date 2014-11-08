@@ -162,7 +162,7 @@
 				if (!$this->valid()) {
 					$this->_throwOutOfBoundsException();
 				}
-			} while ($condition);
+			} while ($condition());
 		}
 
 		/**
