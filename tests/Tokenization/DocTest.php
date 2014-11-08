@@ -5,43 +5,45 @@
 	use \HippoPHP\Tokenizer\TokenType;
 	use \HippoPHP\Tokenizer\Tests\Tokenization\AbstractTokenizationTest;
 
-	class HereDocTest extends AbstractTokenizationTest {
+	class DocTest extends AbstractTokenizationTest {
 		/**
-		 * @dataProvider goodHeredocProvider
+		 * @dataProvider gooddocProvider
 		 */
 		public function testBasic($source) {
 			$tokens = $this->tokenizer->tokenize($source);
-			$this->assertTokenTypes([ TokenType::TOKEN_HEREDOC], $tokens);
+			$this->assertTokenTypes([ TokenType::TOKEN_DOC], $tokens);
 			$this->assertTokenContent([ $source ], $tokens);
 		}
 
 		/**
-		 * @dataProvider badHeredocProvider
+		 * @dataProvider badDocProvider
 		 */
-		public function testNotHeredoc($source) {
+		public function testBadDoc($source) {
 			$tokens = $this->tokenizer->tokenize($source);
-			$this->assertNotEquals(TokenType::TOKEN_HEREDOC, $tokens[0]->getType());
+			$this->assertNotEquals(TokenType::TOKEN_DOC, $tokens[0]->getType());
 		}
 
-		public function goodHeredocProvider() {
+		public function gooddocProvider() {
 			return [['<<<"EOF"
 	what is life
-		I don\'t want to be Godzilla
 EOF'], ['<<<EOF
-	what is life
-		I don\'t want to be Godzilla
+I don\'t want to be Godzilla
 EOF'], ['<<<EOF
 me neither
-EOF;']];
+EOF;'], ['<<<\'EOF\'
+but single quotes are fine.
+EOF']];
 		}
 
 
-		public function badHeredocProvider() {
+		public function badDocProvider() {
 			return [
-//TODO: why does this fail?
+//TODO: why do these fail?
 /*['<<<"EOF"
 nope
-"EOF"'], */['<<<EOF
+"EOF"'], ['<<<\'EOF\'
+nope
+\'EOF\''], */['<<<EOF
 nope
 EOFF'], ['<<<EOF
 nope
