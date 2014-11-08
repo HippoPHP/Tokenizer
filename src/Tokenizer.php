@@ -21,15 +21,26 @@
 		public function tokenize($buffer) {
 			$currentBuffer = $buffer;
 			$tokens = [];
+
+			$column = 1;
+			$line = 1;
+
 			while ($currentBuffer !== '') {
-				$token = $this->_getHeadTokenFromBuffer($currentBuffer);
+				$token = $this->_getHeadTokenFromBuffer($currentBuffer, $line, $column);
 				if (!$token) {
 					throw new \Exception('Syntax error near ' . substr($currentBuffer, 0, 50) . '...');
 				}
 
 				$tokens[] = $token;
-
 				$tokenLength = strlen($token->getContent());
+
+				if ($token->getType() === TokenType::TOKEN_EOL) {
+					$line ++;
+					$column = 1;
+				} else {
+					$column += $tokenLength;
+				}
+
 				if ($tokenLength === strlen($currentBuffer)) {
 					$currentBuffer = '';
 				} else {
@@ -39,13 +50,13 @@
 			return $tokens;
 		}
 
-		private function _getHeadTokenFromBuffer($currentBuffer) {
+		private function _getHeadTokenFromBuffer($currentBuffer, $currentLine, $currentColumn) {
 			foreach ($this->matchers as $matcher) {
 				$tokenType = $matcher->getTokenType();
 				$content = $matcher->match($currentBuffer);
 				if ($content !== null) {
 					//TODO: extract line and column
-					$token = new Token($tokenType, $content, null, null);
+					$token = new Token($tokenType, $content, $currentLine, $currentColumn);
 					return $token;
 				}
 			}
