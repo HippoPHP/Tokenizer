@@ -12,7 +12,7 @@
 		}
 
 		protected function getMatcher() {
-			return new StringMatcher(['<?php', '<?=', '<?', '<%']);
+			return new StringMatcher(['<?php', '<?=', '<?', '<%=', '<%']);
 		}
 
 		public function getPriority() {
