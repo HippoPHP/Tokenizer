@@ -75,6 +75,7 @@
 					'static',
 					'require', 'require_once',
 					'include', 'include_once',
+					'global', 'goto', 'echo',
 				]),
 
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
