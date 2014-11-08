@@ -5,7 +5,7 @@
 	use \HippoPHP\Tokenizer\TokenType;
 	use \HippoPHP\Tokenizer\Tests\Tokenization\AbstractTokenizationTest;
 
-	class KeywordTest extends AbstractTokenizationTest {
+	class CommentTest extends AbstractTokenizationTest {
 		public function testBasic() {
 			$tokens = $this->tokenizer->tokenize(<<<EOF
 	/**
