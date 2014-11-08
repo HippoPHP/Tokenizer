@@ -123,6 +123,17 @@
 					// Other
 					'instanceof',
 				]),
+
+				TokenType::TOKEN_TYPECAST => (new StringMatcher([
+					'integer', 'int',
+					'boolean', 'bool',
+					'float', 'double', 'real',
+					'string',
+					'array',
+					'object',
+					'unset',
+					'binary',
+				]))->setCaseSensitive(false),
 			];
 		}
 	}
