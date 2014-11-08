@@ -73,4 +73,13 @@
 		public function getColumn() {
 			return $this->column;
 		}
+
+		/**
+		 * Compares token types.
+		 * @param  string  $tokenType
+		 * @return boolean
+		 */
+		public function isType($tokenType) {
+			return $this->getType() === $tokenType;
+		}
 	}
