@@ -28,10 +28,12 @@
 				}
 
 				$tokens[] = $token;
-				if (strlen($token->getContent()) === strlen($currentBuffer)) {
+
+				$tokenLength = strlen($token->getContent());
+				if ($tokenLength === strlen($currentBuffer)) {
 					$currentBuffer = '';
 				} else {
-					$currentBuffer = substr($currentBuffer, strlen($token->getContent()));
+					$currentBuffer = substr($currentBuffer, $tokenLength);
 				}
 			}
 			return $tokens;
