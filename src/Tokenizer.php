@@ -67,7 +67,7 @@
 					'for', 'foreach',
 					'do', 'while',
 					'switch', 'case',
-					'break',
+					'break', 'continue',
 					'return',
 					'yield',
 					'throw', 'try', 'catch', 'finally',
