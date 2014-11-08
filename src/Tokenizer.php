@@ -12,7 +12,7 @@
 	use \ReflectionClass;
 
 	class Tokenizer {
-		private $matchers;
+		private $_matchers;
 
 		public function __construct() {
 			$this->_buildMatchers();
@@ -50,8 +50,15 @@
 			return $tokens;
 		}
 
+		/**
+		 * @return TokenMatcher[]
+		 */
+		public function getMatchers() {
+			return $this->_matchers;
+		}
+
 		private function _getHeadTokenFromBuffer($currentBuffer, $currentLine, $currentColumn) {
-			foreach ($this->matchers as $matcher) {
+			foreach ($this->_matchers as $matcher) {
 				$tokenType = $matcher->getTokenType();
 				$content = $matcher->match($currentBuffer);
 				if ($content !== null) {
@@ -68,17 +75,17 @@
 				require_once $path;
 			}
 
-			$this->matchers = [];
+			$this->_matchers = [];
 			foreach (get_declared_classes() as $class) {
 				$reflectionClass = new ReflectionClass($class);
 				if ($reflectionClass->implementsInterface('\HippoPHP\Tokenizer\TokenMatchers\TokenMatcherInterface')
 						&& !$reflectionClass->isInterface()
 						&& !$reflectionClass->isAbstract()) {
-					$this->matchers[] = $reflectionClass->newInstance();
+					$this->_matchers[] = $reflectionClass->newInstance();
 				}
 			}
 
-			usort($this->matchers, function($a, $b) {
+			usort($this->_matchers, function($a, $b) {
 				return $b->getPriority() - $a->getPriority();
 			});
 		}
