@@ -6,6 +6,11 @@
 	use \HippoPHP\Tokenizer\Matchers\StringMatcher;
 	use \HippoPHP\Tokenizer\Matchers\RegexMatcher;
 
+	use \RecursiveDirectoryIterator;
+	use \RecursiveIteratorIterator;
+	use \RegexIterator;
+	use \ReflectionClass;
+
 	class Tokenizer {
 		private $matchers;
 
@@ -33,7 +38,8 @@
 		}
 
 		private function _getHeadTokenFromBuffer($currentBuffer) {
-			foreach ($this->matchers as $tokenType => $matcher) {
+			foreach ($this->matchers as $matcher) {
+				$tokenType = $matcher->getTokenType();
 				$content = $matcher->match($currentBuffer);
 				if ($content !== null) {
 					//TODO: extract line and column
@@ -45,96 +51,32 @@
 		}
 
 		private function _buildMatchers() {
-			$this->matchers = [
-				TokenType::TOKEN_DOC => new RegexMatcher('<<<(["\']?)([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\1[\r\n].*^\2($|;)'),
-				TokenType::TOKEN_BACKTICKS_STRING => new RegexMatcher('`(?:(?!`)[^\\\]|\\\.)*`'),
-				TokenType::TOKEN_QUOTED_STRING => new RegexMatcher('(["\'])(?:(?!\1)[^\\\]|\\\.)*\1'),
-				TokenType::TOKEN_BIG_COMMENT => new RegexMatcher('\/\*.*\*\/'),
-				TokenType::TOKEN_SMALL_COMMENT => new RegexMatcher('\/\/.*$'),
-				TokenType::TOKEN_OPEN_TAG => new StringMatcher(['<?php', '<?=', '<?', '<%']),
-				TokenType::TOKEN_EOL => new RegexMatcher('[\r\n]+'),
-				TokenType::TOKEN_WHITESPACE => new RegexMatcher('[ \t]+'),
-				TokenType::TOKEN_CURLY => new StringMatcher(['{', '}']),
-				TokenType::TOKEN_ROUND => new StringMatcher(['(', ')']),
-				TokenType::TOKEN_SQUARE => new StringMatcher(['[', ']']),
-				TokenType::TOKEN_SEMICOLON => new StringMatcher(';'),
-				TokenType::TOKEN_COMMA => new StringMatcher(','),
-				TokenType::TOKEN_BACKSLASH => new StringMatcher('\\'),
-				TokenType::TOKEN_VARIABLE => new RegexMatcher('\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'),
-				TokenType::TOKEN_KEYWORD => (new StringMatcher([
-					'__halt_compiler',
-					'abstract', 'as', 'break', 'callable', 'case', 'catch',
-					'class', 'clone', 'const', 'continue', 'declare',
-					'default', 'die', 'do', 'echo', 'else', 'elseif',
-					'empty', 'enddeclare', 'endfor', 'endforeach', 'endif',
-					'endswitch', 'endwhile', 'eval', 'exit', 'extends',
-					'final', 'finally', 'for', 'foreach', 'function',
-					'global', 'goto', 'if', 'implements', 'include_once',
-					'include', 'insteadof','interface',
-					'isset', 'list', 'namespace', 'new', 'or', 'print',
-					'private', 'protected', 'public', 'require_once', 'require',
-					'return', 'static', 'switch', 'throw', 'trait', 'try',
-					'unset', 'use', 'var', 'while', 'yield',
-				]))->setCaseSensitive(false),
+			foreach ($this->_getPathsToTokenMatchers() as $path) {
+				require_once $path;
+			}
 
-				TokenType::TOKEN_COMPILETIME_CONSTANT => new StringMatcher([
-					'__CLASS__',
-					'__DIR__',
-					'__FILE__',
-					'__FUNCTION__',
-					'__LINE__',
-					'__METHOD__',
-					'__NAMESPACE__',
-					'__TRAIT__',
-				]),
+			$this->matchers = [];
+			foreach (get_declared_classes() as $class) {
+				$reflectionClass = new ReflectionClass($class);
+				if ($reflectionClass->implementsInterface('\HippoPHP\Tokenizer\TokenMatchers\TokenMatcherInterface')
+						&& !$reflectionClass->isInterface()
+						&& !$reflectionClass->isAbstract()) {
+					$this->matchers[] = $reflectionClass->newInstance();
+				}
+			}
 
-				TokenType::TOKEN_NULL => (new StringMatcher('null'))->setCaseSensitive(false),
+			usort($this->matchers, function($a, $b) {
+				return $b->getPriority() - $a->getPriority();
+			});
+		}
 
-				TokenType::TOKEN_BOOLEAN => (new StringMatcher([
-					'true',
-					'false',
-				]))->setCaseSensitive(false),
-
-				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
-
-				TokenType::TOKEN_OPERATOR => new StringMatcher([
-					// Scope and classes
-					'::', '->',
-					// Incrementing
-					'++', '+=',
-					// Decrementing
-					'--', '-=',
-					// Arithmetic
-					'**=', '%=', '/=', '*=', '**', '*', '%', '/', '-', '+',
-					// Assignment
-					'=',
-					// Bitwise
-					'<<=', '>>=', '&&', '||', '|=', '&=', '<<', '>>', '^=',
-					'&', '|', '^', '~',
-					// Comparison
-					'===', '!==', '==', '<>', '!=', '<=', '>=', '<', '>',
-					// Logical
-					'and', 'or', 'xor', '!',
-					// Error Supression
-					'@',
-					// Ternary
-					'?', ':',
-					// Concatenation
-					'.',
-					// Other
-					'instanceof',
-				]),
-
-				TokenType::TOKEN_TYPECAST => (new StringMatcher([
-					'integer', 'int',
-					'boolean', 'bool',
-					'float', 'double', 'real',
-					'string',
-					'array',
-					'object',
-					'unset',
-					'binary',
-				]))->setCaseSensitive(false),
-			];
+		private function _getPathsToTokenMatchers() {
+			return
+				new RegexIterator(
+					new RecursiveIteratorIterator(
+						new RecursiveDirectoryIterator(
+							__DIR__ . DIRECTORY_SEPARATOR . 'TokenMatchers',
+							RecursiveDirectoryIterator::SKIP_DOTS)),
+					'/php$/i');
 		}
 	}
