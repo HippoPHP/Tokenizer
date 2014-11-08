@@ -54,7 +54,9 @@
 		public function seekToType($tokenType, $direction = self::DIR_FORWARD) {
 			$_position = $this->_position;
 
-			$this->_move(function() use ($tokenType) {
+			$this->_move($direction);
+
+			$this->_moveWithCondition(function() use ($tokenType) {
 				return !$this->current()->isType($tokenType);
 			}, $direction);
 
@@ -67,12 +69,9 @@
 		 * @param int $direction DIR_BACKWARD or DIR_FORWARD
 		 */
 		public function skipTypes($tokenTypes, $direction = self::DIR_FORWARD) {
-			$this->_move(function() use ($tokenTypes) {
+			$this->_moveWithCondition(function() use ($tokenTypes) {
 				return in_array($this->current()->getType(), $tokenTypes);
 			}, $direction);
-
-			// Move past the current token.
-			$this->next();
 
 			return $this->current();
 		}
@@ -146,23 +145,32 @@
 		}
 
 		/**
-		 * Moves the positon based on a positon.
+		 * Moves the positon based on a direction, until the given condition is fulfilled.
 		 * @param  callable $condition
 		 * @param  int   $direction
 		 * @return void
 		 */
-		private function _move(callable $condition, $direction = self::DIR_FORWARD) {
-			do {
-				if ($direction === self::DIR_FORWARD) {
-					$this->next();
-				} elseif ($direction === self::DIR_BACKWARD) {
-					$this->prev();
-				}
+		private function _moveWithCondition(callable $condition, $direction = self::DIR_FORWARD) {
+			while ($condition()) {
+				$this->_move($direction);
 
 				if (!$this->valid()) {
 					$this->_throwOutOfBoundsException();
 				}
-			} while ($condition());
+			}
+		}
+
+		/**
+		 * Moves the positon based on a direction.
+		 * @param  int   $direction
+		 * @return void
+		 */
+		private function _move($direction) {
+			if ($direction === self::DIR_FORWARD) {
+				$this->next();
+			} elseif ($direction === self::DIR_BACKWARD) {
+				$this->prev();
+			}
 		}
 
 		/**
