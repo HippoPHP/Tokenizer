@@ -96,27 +96,27 @@
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
 
 				TokenType::TOKEN_OPERATOR => new StringMatcher([
-					// Arithmetic
-					'+', '-', '*', '/', '%', '**',
-					// Assignment
-					'=', '=&',
-					// Bitwise
-					'&', '|', '^', '~', '<<', '>>', '&&', '||', '|=', '&=', '<<=',
-					'>>=',
-					// Comparison
-					'==', '===', '!=', '<>', '!==', '<', '>', '<=', '>=',
+					// Scope and classes
+					'::', '->',
 					// Incrementing
 					'++', '+=',
 					// Decrementing
 					'--', '-=',
+					// Arithmetic
+					'+', '-', '**', '/', '%', '*', '*=', '/=', '%=', '**=',
+					// Assignment
+					'=',
+					// Bitwise
+					'<<', '>>', '&&', '||', '|=', '&=', '<<=', '>>=', '^=',
+					'&', '|', '^', '~',
+					// Comparison
+					'===', '==', '!==', '<>', '!=', '<=', '>=', '<', '>',
 					// Logical
-					'and', 'or', 'xor', '!', '!!',
+					'and', 'or', 'xor', '!',
 					// Error Supression
 					'@',
 					// Ternary
-					'?', ':', '?:',
-					// Scope and classes
-					'::', '->',
+					'?', ':',
 					// Concatenation
 					'.',
 					// Other
