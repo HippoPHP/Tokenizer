@@ -48,4 +48,17 @@
 			$regexMatcher = new RegexMatcher('a');
 			$this->assertNull($regexMatcher->match("b\na"));
 		}
+
+		public function testRegexAlternative() {
+			$regexMatcher = new RegexMatcher('a|b');
+			$this->assertEquals('a', $regexMatcher->match('a'));
+			$this->assertEquals('b', $regexMatcher->match('b'));
+			$this->assertNull($regexMatcher->match('_b'));
+		}
+
+		public function testRegexBackreferences() {
+			$regexMatcher = new RegexMatcher('(a)\1');
+			$this->assertEquals('aa', $regexMatcher->match('aa'));
+			$this->assertNull($regexMatcher->match('a'));
+		}
 	}
