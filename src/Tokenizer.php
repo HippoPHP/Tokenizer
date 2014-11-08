@@ -80,7 +80,7 @@
 					'declare', 'enddeclare',
 				]),
 
-				TokenType::TOKEN_COMPILETIME_CONSTANTS => new StringMatcher([
+				TokenType::TOKEN_COMPILETIME_CONSTANT => new StringMatcher([
 					'__CLASS__',
 					'__DIR__',
 					'__FILE__',
