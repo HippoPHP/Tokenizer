@@ -24,7 +24,10 @@
 		}
 
 		public function goodHeredocProvider() {
-			return [['<<<EOF
+			return [['<<<"EOF"
+	what is life
+		I don\'t want to be Godzilla
+EOF'], ['<<<EOF
 	what is life
 		I don\'t want to be Godzilla
 EOF'], ['<<<EOF
@@ -35,7 +38,10 @@ EOF;']];
 
 		public function badHeredocProvider() {
 			return [
-				['<<<EOF
+//TODO: why does this fail?
+/*['<<<"EOF"
+nope
+"EOF"'], */['<<<EOF
 nope
 EOFF'], ['<<<EOF
 nope

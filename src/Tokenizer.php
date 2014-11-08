@@ -46,7 +46,7 @@
 
 		private function _buildMatchers() {
 			$this->matchers = [
-				TokenType::TOKEN_HEREDOC => new RegexMatcher('<<<([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)[\r\n].*^\1($|;)'),
+				TokenType::TOKEN_HEREDOC => new RegexMatcher('<<<("?)([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\1[\r\n].*^\2($|;)'),
 				TokenType::TOKEN_QUOTED_STRING => new RegexMatcher('(["\'])(?:(?!\1)[^\\\]|\\\.)*\1'),
 				TokenType::TOKEN_BIG_COMMENT => new RegexMatcher('\/\*.*\*\/'),
 				TokenType::TOKEN_SMALL_COMMENT => new RegexMatcher('\/\/.*$'),
