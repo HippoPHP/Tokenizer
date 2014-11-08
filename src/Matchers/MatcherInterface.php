@@ -5,7 +5,7 @@
 	interface MatcherInterface {
 		/**
 		 * @param string $content
-		 * @return string[]|null
+		 * @return string|null
 		 */
 		public function match($content);
 
