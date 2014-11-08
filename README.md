@@ -1,9 +1,8 @@
 # Tokenizer
 
-[![Build Status](https://travis-ci.org/HippoPHP/Tokenizer.svg)](https://travis-ci.org/HippoPHP/Tokenizer)
-[![Code Climate](https://codeclimate.com/github/HippoPHP/Tokenizer/badges/gpa.svg)](https://codeclimate.com/github/HippoPHP/Tokenizer)
-[![Test Coverage](https://codeclimate.com/github/HippoPHP/Tokenizer/badges/coverage.svg)](https://codeclimate.com/github/HippoPHP/Tokenizer)
-[![Gitter chat](https://badges.gitter.im/hippophp.png)](https://gitter.im/hippophp)
+[![Build Status](http://img.shields.io/travis/HippoPHP/Tokenizer.svg?style=flat-square)](https://travis-ci.org/HippoPHP/Tokenizer)
+[![Code Climate](http://img.shields.io/codeclimate/github/HippoPHP/Tokenizer.svg?style=flat-square)](https://codeclimate.com/github/HippoPHP/Tokenizer)
+[![Test Coverage](http://img.shields.io/codeclimate/coverage/github/HippoPHP/Tokenizer.svg?style=flat-square)](https://codeclimate.com/github/HippoPHP/Tokenizer)
 
 # License
 
