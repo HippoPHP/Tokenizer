@@ -55,7 +55,6 @@
 				require_once $path;
 			}
 
-
 			$this->matchers = [];
 			foreach (get_declared_classes() as $class) {
 				$reflectionClass = new ReflectionClass($class);
