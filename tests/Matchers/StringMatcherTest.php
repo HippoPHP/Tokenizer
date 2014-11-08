@@ -5,6 +5,11 @@
 	use \HippoPHP\Tokenizer\Matchers\StringMatcher;
 
 	class StringMatcherTest extends \PHPUnit_Framework_TestCase {
+		public function testReturnsThis() {
+			$stringMatcher = new StringMatcher('a');
+			$this->assertInstanceOf('\HippoPHP\Tokenizer\Matchers\StringMatcher', $stringMatcher);
+		}
+
 		public function testBasicString() {
 			$stringMatcher = new StringMatcher('a');
 			$this->assertEquals('a', $stringMatcher->match('a'));
