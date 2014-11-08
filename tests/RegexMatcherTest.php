@@ -29,4 +29,9 @@
 			$this->assertEquals('aa', $regexMatcher->match('aa|'));
 			$this->assertNull($regexMatcher->match('|'));
 		}
+
+		public function testMultilineRegex() {
+			$regexMatcher = new RegexMatcher('.*');
+			$this->assertEquals("a\nb", $regexMatcher->match("a\nb"));
+		}
 	}

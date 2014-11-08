@@ -19,7 +19,7 @@
 		 */
 		public function match($content) {
 			foreach ($this->_regexes as $regex) {
-				if (preg_match('/^' . $regex . '/', $content, $matches)) {
+				if (preg_match('/^' . $regex . '/ms', $content, $matches)) {
 					return $matches[0];
 				}
 			}
