@@ -13,7 +13,7 @@
 		/**
 		 * @var int
 		 */
-		private $_position;
+		private $_position = 0;
 
 		/**
 		 * @var array
