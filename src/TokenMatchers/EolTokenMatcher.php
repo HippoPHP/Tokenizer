@@ -12,7 +12,7 @@
 		}
 
 		public function getMatcher() {
-			return new RegexMatcher('[\r\n]+');
+			return new RegexMatcher('\r\n|\r|\n');
 		}
 
 		public function getPriority() {
