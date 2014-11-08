@@ -5,6 +5,21 @@
 	use \HippoPHP\Tokenizer\Tests\Tokenization\AbstractTokenizationTest;
 
 	class GeneralTest extends AbstractTokenizationTest {
+		public function testEmptyString() {
+			$tokens = $this->tokenizer->tokenize('');
+			$this->assertEquals(0, count($tokens));
+		}
+
+		public function testNull() {
+			$tokens = $this->tokenizer->tokenize(null);
+			$this->assertEquals(0, count($tokens));
+		}
+
+		public function testNotAString() {
+			$this->setExpectedException('\Exception');
+			$tokens = $this->tokenizer->tokenize(array());
+		}
+
 		public function testNotPhp() {
 			$this->setExpectedException('\Exception');
 			$this->tokenizer->tokenize('"no token should be matched');

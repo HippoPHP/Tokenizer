@@ -18,7 +18,16 @@
 			$this->_buildMatchers();
 		}
 
+		/**
+		 * @param string $buffer
+		 * @return Token[]
+		 */
 		public function tokenize($buffer) {
+			if ($buffer === null) {
+				return [];
+			} elseif (!is_string($buffer)) {
+				throw new \Exception('Buffer must be a string.');
+			}
 			$currentBuffer = $buffer;
 			$tokens = [];
 
@@ -41,11 +50,9 @@
 					$column += $tokenLength;
 				}
 
-				if ($tokenLength === strlen($currentBuffer)) {
-					$currentBuffer = '';
-				} else {
-					$currentBuffer = substr($currentBuffer, $tokenLength);
-				}
+				$currentBuffer = $tokenLength === strlen($currentBuffer)
+					? ''
+					: substr($currentBuffer, $tokenLength);
 			}
 			return $tokens;
 		}
