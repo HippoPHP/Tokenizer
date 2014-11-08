@@ -72,7 +72,7 @@
 					'yield',
 					'throw', 'try', 'catch', 'finally',
 					'public', 'protected', 'private',
-					'static',
+					'static', 'final',
 					'require', 'require_once',
 					'include', 'include_once',
 					'global', 'goto', 'echo',
