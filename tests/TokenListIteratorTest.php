@@ -77,6 +77,18 @@
 			$this->tokenList->seekToType(TokenType::TOKEN_DOC);
 		}
 
+		/**
+		 * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
+		 */
+		public function testSeekToNonExistingTypeReset() {
+			try {
+				$this->tokenList->seekToType(TokenType::TOKEN_DOC);
+			} catch (\Exception $e) {
+				$this->assertEquals(0, $this->tokenList->key());
+				throw $e;
+			}
+		}
+
 		public function testSkipTypes() {
 			$ignoreTokens = [
 				TokenType::TOKEN_OPEN_TAG,

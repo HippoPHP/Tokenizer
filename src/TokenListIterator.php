@@ -52,15 +52,15 @@
 		 * @param int $direction DIR_BACKWARD or DIR_FORWARD
 		 */
 		public function seekToType($tokenType, $direction = self::DIR_FORWARD) {
-			$_position = $this->_position;
+			return $this->_safeMove(function() use ($tokenType, $direction) {
+				$this->_move($direction);
 
-			$this->_move($direction);
+				$this->_moveWithCondition(function() use ($tokenType) {
+					return !$this->current()->isType($tokenType);
+				}, $direction);
 
-			$this->_moveWithCondition(function() use ($tokenType) {
-				return !$this->current()->isType($tokenType);
-			}, $direction);
-
-			return $this->current();
+				return $this->current();
+			});
 		}
 
 		/**
@@ -69,11 +69,13 @@
 		 * @param int $direction DIR_BACKWARD or DIR_FORWARD
 		 */
 		public function skipTypes($tokenTypes, $direction = self::DIR_FORWARD) {
-			$this->_moveWithCondition(function() use ($tokenTypes) {
-				return in_array($this->current()->getType(), $tokenTypes);
-			}, $direction);
+			return $this->_safeMove(function() use ($tokenTypes, $direction) {
+				$this->_moveWithCondition(function() use ($tokenTypes) {
+					return in_array($this->current()->getType(), $tokenTypes);
+				}, $direction);
 
-			return $this->current();
+				return $this->current();
+			});
 		}
 
 		/**
@@ -185,5 +187,20 @@
 					$position !== null ? $position : $this->_position
 				)
 			);
+		}
+
+		/**
+		 * Restores previous position if OutOfBounds error occurs.
+		 * @param callable $moveAction
+		 * @return mixed
+		 */
+		private function _safeMove(callable $moveAction) {
+			$oldPosition = $this->_position;
+			try {
+				return $moveAction();
+			} catch (OutOfBoundsException $e) {
+				$this->_position = $oldPosition;
+				throw $e;
+			}
 		}
 	}
