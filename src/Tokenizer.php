@@ -91,9 +91,7 @@
 					'__TRAIT__',
 				]),
 
-				TokenType::TOKEN_NULL => (new StringMatcher([
-					'null', 'NULL'
-				]))->setCaseSensitive(false),
+				TokenType::TOKEN_NULL => (new StringMatcher('null'))->setCaseSensitive(false),
 
 				TokenType::TOKEN_BOOLEAN => (new StringMatcher([
 					'true',
