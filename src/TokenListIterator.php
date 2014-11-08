@@ -55,7 +55,7 @@
 			$_position = $this->_position;
 
 			$this->_move(function() use ($tokenType) {
-				!$this->current()->isType($tokenType);
+				return !$this->current()->isType($tokenType);
 			}, $direction);
 
 			return $this->current();
