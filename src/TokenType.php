@@ -4,6 +4,7 @@
 
 	class TokenType {
 		const TOKEN_OPEN_TAG = 'TOKEN_OPEN_TAG';
+		const TOKEN_CLOSE_TAG = 'TOKEN_CLOSE_TAG';
 		const TOKEN_WHITESPACE = 'TOKEN_WHITESPACE';
 		const TOKEN_EOL = 'TOKEN_EOL';
 		const TOKEN_CURLY = 'TOKEN_CURLY';
