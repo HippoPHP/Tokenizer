@@ -163,7 +163,7 @@
 
 				if (!$this->valid()) {
 					throw new OutOfBoundsException(
-						sprintf('Invalid token position (%d)', $this->current())
+						sprintf('Invalid token position (%d)', $this->_position)
 					);
 				}
 			} while ($condition);
