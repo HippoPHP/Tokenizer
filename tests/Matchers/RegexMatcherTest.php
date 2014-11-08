@@ -43,4 +43,9 @@
 			$regexMatcher = new RegexMatcher('.*');
 			$this->assertEquals("a\nb", $regexMatcher->match("a\nb"));
 		}
+
+		public function testMultilineRegexNewlines() {
+			$regexMatcher = new RegexMatcher('a');
+			$this->assertNull($regexMatcher->match("b\na"));
+		}
 	}

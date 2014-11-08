@@ -33,7 +33,7 @@
 		 */
 		public function match($content) {
 			foreach ($this->_regexes as $regex) {
-				if (preg_match('/^' . $regex . '/ms' . $this->_flags, $content, $matches)) {
+				if (preg_match('/\A' . $regex . '/ms' . $this->_flags, $content, $matches)) {
 					return $matches[0];
 				}
 			}
