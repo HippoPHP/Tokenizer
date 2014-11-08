@@ -17,6 +17,11 @@
 			return $this;
 		}
 
+		/**
+		 * Sets whether a string match is case sensitive.
+		 * @param bool $enabled
+		 * @return StringMatcher
+		 */
 		public function setCaseSensitive($enabled) {
 			$this->_function = $enabled ? 'strncmp' : 'strncasecmp';
 			return $this;

@@ -11,7 +11,7 @@
 
 		/**
 		 * @param bool $enabled
-		 * @return $this
+		 * @return MatcherInterface
 		 */
 		public function setCaseSensitive($enabled);
 	}

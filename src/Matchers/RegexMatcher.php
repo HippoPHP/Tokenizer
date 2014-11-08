@@ -17,6 +17,11 @@
 			return $this;
 		}
 
+		/**
+		 * Sets whether a regular expression is case sensitive.
+		 * @param bool $enabled
+		 * @return RegexMatcher
+		 */
 		public function setCaseSensitive($enabled) {
 			$this->_flags = $enabled ? '' : 'i';
 			return $this;
