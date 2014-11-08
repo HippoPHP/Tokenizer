@@ -48,7 +48,8 @@
 			$this->matchers = [
 				TokenType::TOKEN_QUOTED_STRING => new RegexMatcher('(["\'])(?:(?!\1)[^\\\]|\\\.)*\1'),
 				TokenType::TOKEN_OPEN_TAG => new StringMatcher(['<?php', '<?=', '<?', '<%']),
-				TokenType::TOKEN_WHITESPACE => new RegexMatcher('\s+'),
+				TokenType::TOKEN_EOL => new RegexMatcher('[\r\n]+'),
+				TokenType::TOKEN_WHITESPACE => new RegexMatcher('[ \t]+'),
 				TokenType::TOKEN_CURLY => new StringMatcher(['{', '}']),
 				TokenType::TOKEN_ROUND => new StringMatcher(['(', ')']),
 				TokenType::TOKEN_SQUARE => new StringMatcher(['[', ']']),
