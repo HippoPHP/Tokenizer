@@ -5,15 +5,15 @@
 	class Token {
 		/**
 		 * Token type.
-		 * @var mixed
+		 * @var string
 		 */
 		protected $type;
 
 		/**
-		 * Token lexme.
-		 * @var int
+		 * Token content.
+		 * @var string
 		 */
-		protected $lexeme;
+		protected $content;
 
 		/**
 		 * Token line.
@@ -30,34 +30,32 @@
 		/**
 		 * Creates a new Token.
 		 * @param mixed $type
-		 * @param string $lexeme
+		 * @param string $content
 		 * @param int $line
 		 * @param int $column
 		 * @return Token
 		 */
-		public function __construct($type, $lexeme, $line, $column) {
+		public function __construct($type, $content, $line, $column) {
 			$this->type = $type;
-			$this->lexeme = $lexeme;
+			$this->content = $content;
 			$this->line = $line;
 			$this->column = $column;
-
-			return $this;
 		}
 
 		/**
 		 * Return the token type.
-		 * @return mixed
+		 * @return string
 		 */
 		public function getType() {
 			return $this->type;
 		}
 
 		/**
-		 * Return the token lexme.
+		 * Return the token content.
 		 * @return string
 		 */
-		public function getLexeme() {
-			return $this->lexeme;
+		public function getContent() {
+			return $this->content;
 		}
 
 		/**
@@ -74,45 +72,5 @@
 		 */
 		public function getColumn() {
 			return $this->column;
-		}
-
-		/**
-		 * Check if the token contains new line characters.
-		 * @return boolean
-		 */
-		public function hasNewline() {
-			if (preg_match('([\r\n])', $this->lexeme)) {
-				return true;
-			}
-
-			return false;
-		}
-
-		/**
-		 * Get the number of new lines.
-		 * @return int
-		 */
-		public function getNewlineCount() {
-			preg_match_all('(\n|\r\n?)', $this->lexeme, $matches, PREG_SET_ORDER);
-			return count($matches);
-		}
-
-		/**
-		 * Get the length of the last line.
-		 * @return int
-		 */
-		public function getTrailingLineLength() {
-			return iconv_strlen(
-				substr(strrchr($this->lexeme, "\n") ?: strrchr($this->lexeme, "\r"), 1),
-				'utf-8'
-			);
-		}
-
-		/**
-		 * Get length of entire token lexme.
-		 * @return int
-		 */
-		public function getLength() {
-			return iconv_strlen($this->lexeme, 'utf-8');
 		}
 	}

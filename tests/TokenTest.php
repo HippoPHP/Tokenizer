@@ -15,8 +15,8 @@
 			$this->assertEquals(T_OPEN_TAG, $this->token->getType());
 		}
 
-		public function testGetLexeme() {
-			$this->assertEquals('<?php', $this->token->getLexeme());
+		public function testGetContent() {
+			$this->assertEquals('<?php', $this->token->getContent());
 		}
 
 		public function testGetLine() {
@@ -25,26 +25,5 @@
 
 		public function testGetColumn() {
 			$this->assertEquals(1, $this->token->getColumn());
-		}
-
-		public function testHasNewLineNoNewLine() {
-			$this->assertFalse($this->token->hasNewLine());
-		}
-
-		public function testHasNewLineWithNewLine() {
-			$token = new Token(T_OPEN_TAG, "<?php\n", 1, 1);
-			$this->assertTrue($token->hasNewLine());
-		}
-
-		public function testGetNewlineCount() {
-			$this->assertEquals(0, $this->token->getNewlineCount());
-		}
-
-		public function testGetTrailingLineLength() {
-			$this->assertEquals(0, $this->token->getTrailingLineLength());
-		}
-
-		public function testGetLength() {
-			$this->assertEquals(5, $this->token->getLength());
 		}
 	}
