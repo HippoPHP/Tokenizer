@@ -28,7 +28,7 @@
 		public function seek($position) {
 			if (!isset($this->_tokens[$position])) {
 				throw new OutOfBoundsException(
-					sprintf('Invalid token position at %d.', $position)
+					sprintf('Invalid token position (%d).', $position)
 				);
 			}
 
@@ -54,30 +54,24 @@
 		 * @param int $direction DIR_BACKWARD or DIR_FORWARD
 		 */
 		public function seekToType($tokenType, $direction = self::DIR_FORWARD) {
-			do {
-				if ($direction === self::DIR_FORWARD) {
-					$this->next();
-				} elseif ($direction === self::DIR_BACKWARD) {
-					$this->prev();
-				}
-			} while (!$this->current()->isType($tokenType));
+			$_position = $this->_position;
+
+			$this->_move(function() use ($tokenType) {
+				!$this->current()->isType($tokenType);
+			}, $direction);
 
 			return $this->current();
 		}
 
 		/**
 		 * Good for ignoring whitespace tokens.
-		 * @param string[] $tokenTypes
+		 * @param array $tokenTypes
 		 * @param int $direction DIR_BACKWARD or DIR_FORWARD
 		 */
 		public function skipTypes($tokenTypes, $direction = self::DIR_FORWARD) {
-			do {
-				if ($direction === self::DIR_FORWARD) {
-					$this->next();
-				} elseif ($direction === self::DIR_BACKWARD) {
-					$this->prev();
-				}
-			} while (in_array($this->current()->getType(), $tokenTypes));
+			$this->_move(function() use ($tokenTypes) {
+				return in_array($this->current()->getType(), $tokenTypes);
+			}, $direction);
 
 			// Move past the current token.
 			$this->next();
@@ -130,7 +124,16 @@
 		 * @return bool
 		 */
 		public function valid() {
-			return isset($this->_tokens[$this->_position]);
+			return $this->validAtPosition($this->_position);
+		}
+
+		/**
+		 * Checks that a position is valid at a given point.
+		 * @param  int $positon
+		 * @return bool
+		 */
+		public function validAtPosition($positon) {
+			return isset($this->_tokens[$positon]);
 		}
 
 		/**
@@ -139,5 +142,27 @@
 		 */
 		public function count() {
 			return count($this->_tokens);
+		}
+
+		/**
+		 * Moves the positon based on a positon.
+		 * @param  callable $condition
+		 * @param  int   $direction
+		 * @return void
+		 */
+		private function _move(callable $condition, $direction = self::DIR_FORWARD) {
+			do {
+				if ($direction === self::DIR_FORWARD) {
+					$this->next();
+				} elseif ($direction === self::DIR_BACKWARD) {
+					$this->prev();
+				}
+
+				if (!$this->valid()) {
+					throw new OutOfBoundsException(
+						sprintf('Invalid token position (%d)', $this->current())
+					);
+				}
+			} while ($condition);
 		}
 	}
