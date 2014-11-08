@@ -124,7 +124,7 @@
 					'instanceof',
 				]),
 
-				TokenType::TOKEN_TYPECAST = new StringMatcher([
+				TokenType::TOKEN_TYPECAST => (new StringMatcher([
 					'integer', 'int',
 					'boolean', 'bool',
 					'float', 'double', 'real',
@@ -133,7 +133,7 @@
 					'object',
 					'unset',
 					'binary',
-				])->setCaseSensitive(false);
+				]))->setCaseSensitive(false),
 			];
 		}
 	}
