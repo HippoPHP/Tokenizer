@@ -61,7 +61,7 @@
 				TokenType::TOKEN_VARIABLE => new RegexMatcher('\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'),
 				TokenType::TOKEN_KEYWORD => new StringMatcher([
 					'namespace', 'use',
-					'class', 'trait', 'function',
+					'class', 'trait', 'function', 'interface',
 					'abstract', 'extends', 'implements',
 					'if', 'else', 'elseif',
 					'for', 'foreach',
