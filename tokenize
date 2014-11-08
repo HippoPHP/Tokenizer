@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__ . DIRECTORY_SEPARATOR
+	. 'vendor' . DIRECTORY_SEPARATOR
+	. 'autoload.php';
+
+use \HippoPHP\Tokenizer\Tokenizer;
+
+if (!isset($argv)) {
+	echo 'Must be run from command line';
+	exit(1);
+}
+
+$tokenizer = new Tokenizer();
+
+for ($i = 1; $i < count($argv); $i ++) {
+	file_put_contents('php://stderr', $argv[$i] . PHP_EOL);
+	$start = microtime(true);
+
+	$tokens = $tokenizer->tokenize(file_get_contents($argv[$i]));
+	print_r($tokens);
+	echo PHP_EOL;
+	$end = microtime(true);
+
+	file_put_contents('php://stderr', sprintf('Parsed in %.04fs' . PHP_EOL, $end - $start));
+}
