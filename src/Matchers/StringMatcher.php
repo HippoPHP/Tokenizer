@@ -17,6 +17,10 @@
 			return $this;
 		}
 
+		public function getValues() {
+			return $this->_values;
+		}
+
 		/**
 		 * Sets whether a string match is case sensitive.
 		 * @param bool $enabled
