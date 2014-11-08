@@ -68,7 +68,7 @@
 					'endswitch', 'endwhile', 'eval', 'exit', 'extends',
 					'final', 'finally', 'for', 'foreach', 'function',
 					'global', 'goto', 'if', 'implements', 'include_once',
-					'include', 'instanceof', 'insteadof','interface',
+					'include', 'insteadof','interface',
 					'isset', 'list', 'namespace', 'new', 'or', 'print',
 					'private', 'protected', 'public', 'require_once', 'require',
 					'return', 'static', 'switch', 'throw', 'trait', 'try',
@@ -111,6 +111,7 @@
 					'or', 'and',
 					'.',
 					'xor',
+					'instanceof',
 				]),
 			];
 		}
