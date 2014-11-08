@@ -1,5 +1,7 @@
 <?php
 
+	namespace HippoPHP\Tokenizer\Tests\Tokenization;
+
 	use \HippoPHP\Tokenizer\TokenType;
 	use \HippoPHP\Tokenizer\Tests\Tokenization\AbstractTokenizationTest;
 
