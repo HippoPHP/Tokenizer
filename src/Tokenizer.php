@@ -37,6 +37,13 @@
 			return $tokens;
 		}
 
+		/**
+		 * @return TokenMatcher[]
+		 */
+		public function getMatchers() {
+			return $this->matchers;
+		}
+
 		private function _getHeadTokenFromBuffer($currentBuffer) {
 			foreach ($this->matchers as $matcher) {
 				$tokenType = $matcher->getTokenType();
