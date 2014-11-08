@@ -6,6 +6,7 @@
 
 	class StringMatcher implements MatcherInterface {
 		private $_values;
+		private $_function = 'strncmp';
 
 		public function __construct($values) {
 			if (is_array($values)) {
@@ -13,6 +14,12 @@
 			} else {
 				$this->_values = [$values];
 			}
+			return $this;
+		}
+
+		public function setCaseSensitive($enabled) {
+			$this->_function = $enabled ? 'strncmp' : 'strncasecmp';
+			return $this;
 		}
 
 		/**
@@ -20,9 +27,11 @@
 		 * @return string|null
 		 */
 		public function match($content) {
+			$_function = $this->_function;
 			foreach ($this->_values as $value) {
-				if (strncmp($content, $value, strlen($value)) === 0) {
-					return $value;
+				$length = strlen($value);
+				if ($_function($content, $value, $length) === 0) {
+					return substr($content, 0, $length);
 				}
 			}
 			return null;

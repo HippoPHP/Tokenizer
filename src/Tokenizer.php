@@ -59,7 +59,7 @@
 				TokenType::TOKEN_COMMA => new StringMatcher(','),
 				TokenType::TOKEN_BACKSLASH => new StringMatcher('\\'),
 				TokenType::TOKEN_VARIABLE => new RegexMatcher('\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*'),
-				TokenType::TOKEN_KEYWORD => new StringMatcher([
+				TokenType::TOKEN_KEYWORD => (new StringMatcher([
 					'namespace', 'use',
 					'class', 'trait', 'function', 'interface',
 					'abstract', 'extends', 'implements', 'new',
@@ -78,7 +78,7 @@
 					'goto', 'echo',
 					'instanceof', 'insteadof',
 					'declare', 'enddeclare',
-				]),
+				]))->setCaseSensitive(false),
 
 				TokenType::TOKEN_COMPILETIME_CONSTANT => new StringMatcher([
 					'__CLASS__',
@@ -91,14 +91,12 @@
 					'__TRAIT__',
 				]),
 
-				TokenType::TOKEN_NULL => new StringMatcher([
-					'null', 'NULL'
-				]),
+				TokenType::TOKEN_NULL => (new StringMatcher('null'))->setCaseSensitive(false),
 
-				TokenType::TOKEN_BOOLEAN => new StringMatcher([
-					'true', 'TRUE',
-					'false', 'FALSE',
-				]),
+				TokenType::TOKEN_BOOLEAN => (new StringMatcher([
+					'true',
+					'false',
+				]))->setCaseSensitive(false),
 
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
 				TokenType::TOKEN_OPERATOR => new StringMatcher([

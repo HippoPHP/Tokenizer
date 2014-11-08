@@ -6,6 +6,7 @@
 
 	class RegexMatcher implements MatcherInterface {
 		private $_regexes;
+		private $_flags = '';
 
 		public function __construct($regexes) {
 			if (is_array($regexes)) {
@@ -13,6 +14,12 @@
 			} else {
 				$this->_regexes = [$regexes];
 			}
+			return $this;
+		}
+
+		public function setCaseSensitive($enabled) {
+			$this->_flags = $enabled ? '' : 'i';
+			return $this;
 		}
 
 		/**
@@ -21,7 +28,7 @@
 		 */
 		public function match($content) {
 			foreach ($this->_regexes as $regex) {
-				if (preg_match('/^' . $regex . '/ms', $content, $matches)) {
+				if (preg_match('/^' . $regex . '/ms' . $this->_flags, $content, $matches)) {
 					return $matches[0];
 				}
 			}
