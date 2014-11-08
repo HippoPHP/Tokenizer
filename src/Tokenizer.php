@@ -80,6 +80,17 @@
 					'declare', 'enddeclare',
 				]),
 
+				TokenType::TOKEN_COMPILETIME_CONSTANTS => new StringMatcher([
+					'__CLASS__',
+					'__DIR__',
+					'__FILE__',
+					'__FUNCTION__',
+					'__LINE__',
+					'__METHOD__',
+					'__NAMESPACE__',
+					'__TRAIT__',
+				]),
+
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
 				TokenType::TOKEN_OPERATOR => new StringMatcher([
 					'@',
