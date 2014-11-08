@@ -63,7 +63,7 @@
 					'namespace', 'use',
 					'class', 'trait', 'function', 'interface',
 					'abstract', 'extends', 'implements',
-					'if', 'else', 'elseif',
+					'if', 'else', 'elseif', 'endif',
 					'for', 'foreach',
 					'do', 'while',
 					'switch', 'case',
@@ -76,6 +76,7 @@
 					'require', 'require_once',
 					'include', 'include_once',
 					'global', 'goto', 'echo',
+					'instanceof', 'insteadof',
 				]),
 
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
