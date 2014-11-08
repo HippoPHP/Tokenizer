@@ -73,6 +73,8 @@
 					'throw', 'try', 'catch', 'finally',
 					'public', 'protected', 'private',
 					'static',
+					'require', 'require_once',
+					'include', 'include_once',
 				]),
 
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
