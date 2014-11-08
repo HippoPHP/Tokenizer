@@ -57,7 +57,6 @@
 		}
 
 		public function testIsValid() {
-			$this->tokenList->rewind();
 			$this->tokenList->next();
 			$this->assertTrue($this->tokenList->valid());
 		}
@@ -68,7 +67,6 @@
 		}
 
 		public function testSkipTypes() {
-			$this->tokenList->rewind(); // Start fresh.
 			$ignoreTokens = [
 				new Token(TokenType::TOKEN_OPEN_TAG, '<?php', 1, 1),
 				new Token(TokenType::TOKEN_EOL, "\t", 2, 1)
