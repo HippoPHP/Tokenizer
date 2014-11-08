@@ -2,9 +2,9 @@
 
 	namespace HippoPHP\Tokenizer;
 
-	use \HippoPHP\Tokenizer\StringMatcher;
-	use \HippoPHP\Tokenizer\RegexMatcher;
 	use \HippoPHP\Tokenizer\TokenType;
+	use \HippoPHP\Tokenizer\Matchers\StringMatcher;
+	use \HippoPHP\Tokenizer\Matchers\RegexMatcher;
 
 	class Tokenizer {
 		private $matchers;

@@ -1,6 +1,8 @@
 <?php
 
-	namespace HippoPHP\Tokenizer;
+	namespace HippoPHP\Tokenizer\Matchers;
+
+	use \HippoPHP\Tokenizer\Matchers\MatcherInterface;
 
 	class StringMatcher implements MatcherInterface {
 		private $_values;

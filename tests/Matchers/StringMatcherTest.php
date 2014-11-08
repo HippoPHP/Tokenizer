@@ -1,8 +1,8 @@
 <?php
 
-	namespace HippoPHP\Tokenizer\Tests;
+	namespace HippoPHP\Tokenizer\Tests\Matchers;
 
-	use \HippoPHP\Tokenizer\StringMatcher;
+	use \HippoPHP\Tokenizer\Matchers\StringMatcher;
 
 	class StringMatcherTest extends \PHPUnit_Framework_TestCase {
 		public function testBasicString() {
