@@ -94,23 +94,32 @@
 				]))->setCaseSensitive(false),
 
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
+
 				TokenType::TOKEN_OPERATOR => new StringMatcher([
+					// Arithmetic
+					'+', '-', '*', '/', '%', '**',
+					// Assignment
+					'=', '=&',
+					// Bitwise
+					'&', '|', '^', '~', '<<', '>>', '&&', '||', '|=', '&=', '<<=',
+					'>>=',
+					// Comparison
+					'==', '===', '!=', '<>', '!==', '<', '>', '<=', '>=',
+					// Incrementing
+					'++', '+=',
+					// Decrementing
+					'--', '-=',
+					// Logical
+					'and', 'or', 'xor', '!', '!!',
+					// Error Supression
 					'@',
-					'&',
-					'->', '::',
-					'=',
-					'|=', '&=', '<<=', '>>=', '+=', '-=', '*=', '/=',
-					'!',
-					'==', '===', '!=', '!==',
-					'<<', '>>',
-					'<', '>', '>=', '<=',
-					'+', '-', '*', '/',
-					'**',
-					'?', ':',
-					'||', '&&',
-					'or', 'and',
+					// Ternary
+					'?', ':', '?:',
+					// Scope and classes
+					'::', '->',
+					// Concatenation
 					'.',
-					'xor',
+					// Other
 					'instanceof',
 				]),
 			];
