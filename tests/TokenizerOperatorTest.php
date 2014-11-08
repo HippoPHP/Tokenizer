@@ -4,23 +4,38 @@
 
 	use \HippoPHP\Tokenizer\Tokenizer;
 	use \HippoPHP\Tokenizer\TokenType;
-	use \ReflectionClass;
-	use \ReflectionMethod;
+	use \HippoPHP\Tokenizer\TokenMatchers\OperatorTokenMatcher;
 
 	class TokenizerOperatorTest extends \PHPUnit_Framework_TestCase {
-		private $tokenizer;
+		public function testGreedyOperatorSequence() {
+			$tokenMatcher = new OperatorTokenMatcher;
+			$stringMatcher = $tokenMatcher->getMatcher();
 
-		public function setUp() {
-			$this->tokenizer = new Tokenizer;
+			$tokens = $stringMatcher->getValues();
+			$tokenCount = count($tokens);
+
+			for ($i = 0; $i < $tokenCount; $i++) {
+				for ($j = 0; $j < $i; $j++) {
+					$a = $tokens[$i];
+					$b = $tokens[$j];
+
+					// If the operators are the same length, ignore it.
+					if (strlen($a) === strlen($b)) {
+						continue;
+					}
+
+					$this->assertFalse($this->startsWith($a, $b));
+				}
+			}
 		}
 
-		public function testGreedyOperatorSequence() {
-			$matchers = $this->tokenizer->getMatchers();
-			$stringMatcher = $matchers[TokenType::TOKEN_OPERATOR];
+		private function startsWith($haystack, $needles) {
+			foreach ((array) $needles as $needle) {
+				if (strncmp($haystack, $needle, strlen($needle)) === 0) {
+					return true;
+				}
+			}
 
-			$method = new ReflectionMethod($stringMatcher, 'getValues');
-			$tokens = $method->invoke($stringMatcher);
-
-			var_dump($tokens); exit;
+			return false;
 		}
 	}
