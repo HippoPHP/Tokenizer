@@ -91,6 +91,10 @@
 					'__TRAIT__',
 				]),
 
+				TokenType::TOKEN_NULL => new StringMatcher([
+					'null', 'NULL'
+				]),
+
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
 				TokenType::TOKEN_OPERATOR => new StringMatcher([
 					'@',
