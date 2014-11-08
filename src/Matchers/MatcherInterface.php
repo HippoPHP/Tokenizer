@@ -1,6 +1,6 @@
 <?php
 
-	namespace HippoPHP\Tokenizer;
+	namespace HippoPHP\Tokenizer\Matchers;
 
 	interface MatcherInterface {
 		/**
