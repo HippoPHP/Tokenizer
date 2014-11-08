@@ -46,19 +46,23 @@
 		}
 
 		public function testRewind() {
+			$this->tokenList->next();
 			$this->tokenList->rewind();
 			$this->assertEquals(0, $this->tokenList->key());
 		}
 
 		public function testMoveAround() {
 			$this->tokenList->next();
+			$this->assertEquals(1, $this->tokenList->key());
 			$this->tokenList->prev();
 			$this->assertEquals(0, $this->tokenList->key());
 		}
 
 		public function testIsValid() {
-			$this->tokenList->next();
 			$this->assertTrue($this->tokenList->valid());
+			$this->tokenList->seek(count($this->tokenList) - 1);
+			$this->tokenList->next();
+			$this->assertFalse($this->tokenList->valid());
 		}
 
 		public function testSeekToType() {
