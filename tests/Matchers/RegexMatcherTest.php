@@ -13,6 +13,15 @@
 			$this->assertNull($regexMatcher->match('b'));
 		}
 
+		public function testCaseSensitivity() {
+			$regexMatcher = (new RegexMatcher('a'))->setCaseSensitive(false);
+			$this->assertEquals('A', $regexMatcher->match('A'));
+			$this->assertEquals('a', $regexMatcher->match('a'));
+			$this->assertNull($regexMatcher->match('b'));
+			$regexMatcher = new RegexMatcher('a');
+			$this->assertNull($regexMatcher->match('A'));
+		}
+
 		public function testBasicArray() {
 			$regexMatcher = new RegexMatcher(['a', 'b']);
 			$this->assertEquals('a', $regexMatcher->match('a'));
