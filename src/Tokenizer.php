@@ -68,7 +68,7 @@
 					'endswitch', 'endwhile', 'eval', 'exit', 'extends',
 					'final', 'finally', 'for', 'foreach', 'function',
 					'global', 'goto', 'if', 'implements', 'include_once',
-					'include', 'instanceof', 'insteadof','interface',
+					'include', 'insteadof','interface',
 					'isset', 'list', 'namespace', 'new', 'or', 'print',
 					'private', 'protected', 'public', 'require_once', 'require',
 					'return', 'static', 'switch', 'throw', 'trait', 'try',
@@ -94,23 +94,33 @@
 				]))->setCaseSensitive(false),
 
 				TokenType::TOKEN_IDENTIFIER => new RegexMatcher('\w+'),
+
 				TokenType::TOKEN_OPERATOR => new StringMatcher([
-					'@',
-					'&',
-					'->', '::',
+					// Scope and classes
+					'::', '->',
+					// Incrementing
+					'++', '+=',
+					// Decrementing
+					'--', '-=',
+					// Arithmetic
+					'**=','%=','/=','*=','**','*','%','/','-','+',
+					// Assignment
 					'=',
-					'|=', '&=', '<<=', '>>=', '+=', '-=', '*=', '/=',
-					'!',
-					'==', '===', '!=', '!==',
-					'<<', '>>',
-					'<', '>', '>=', '<=',
-					'+', '-', '*', '/',
-					'**',
+					// Bitwise
+					'<<', '>>', '&&', '||', '|=', '&=', '<<=', '>>=', '^=',
+					'&', '|', '^', '~',
+					// Comparison
+					'===', '!==', '==', '<>', '!=', '<=', '>=', '<', '>',
+					// Logical
+					'and', 'or', 'xor', '!',
+					// Error Supression
+					'@',
+					// Ternary
 					'?', ':',
-					'||', '&&',
-					'or', 'and',
+					// Concatenation
 					'.',
-					'xor',
+					// Other
+					'instanceof',
 				]),
 			];
 		}
