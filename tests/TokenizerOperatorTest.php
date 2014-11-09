@@ -19,23 +19,15 @@
 					$a = $tokens[$i];
 					$b = $tokens[$j];
 
-					// If the operators are the same length, ignore it.
-					if (strlen($a) === strlen($b)) {
-						continue;
-					}
-
-					$this->assertFalse($this->startsWith($a, $b));
+					$this->assertFalse($this->startsWith($a, $b), $a . ' is a part of ' . $b);
 				}
 			}
 		}
 
-		private function startsWith($haystack, $needles) {
-			foreach ((array) $needles as $needle) {
-				if (strncmp($haystack, $needle, strlen($needle)) === 0) {
-					return true;
-				}
+		private function startsWith($string, $substring) {
+			if (strlen($string) < strlen($substring)) {
+				return false;
 			}
-
-			return false;
+			return strncmp($string, $substring, strlen($substring)) === 0;
 		}
 	}
