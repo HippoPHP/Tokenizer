@@ -40,7 +40,7 @@
 
 			$this->_tokens->setTokens($tokenList);
 
-			return $this->getTokenList();
+			return $tokenList;
 		}
 
 		public function getTokenList() {
