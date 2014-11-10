@@ -4,12 +4,17 @@
 
 	use \HippoPHP\Tokenizer\Token;
 	use \HippoPHP\Tokenizer\Tokenizer;
+	use \HippoPHP\Tokenizer\Exception\InvalidArgumentException;
 
 	class TokenizerTest extends \PHPUnit_Framework_TestCase {
 		private $_tokenizer;
 
 		public function setUp() {
 			$this->_tokenizer = new Tokenizer();
+		}
+
+		public function testConstructor() {
+			$this->assertInstanceOf('\HippoPHP\Tokenizer\Tokenizer', new Tokenizer());
 		}
 
 		public function testTokenize() {
@@ -25,12 +30,20 @@ ETEST
 			$this->assertInstanceOf('\HippoPHP\Tokenizer\TokenListIterator', $tokenList);
 		}
 
+		public function testTokenizeNullBuffer() {
+			$tokenizer = new Tokenizer;
+			$this->assertEmpty($tokenizer->tokenize(null));
+		}
+
 		/**
-		 * @setExpectedException \HippoPHP\Tokenizer\Exception\InvalidArgumentException;
+		 * @expectedException \HippoPHP\Tokenizer\Exception\InvalidArgumentException
 		 */
 		public function testTokenizeInvalidArgument() {
-			new Tokenizer([
-				'<?php echo "Hello";'
-			]);
+			$tokenizer = new Tokenizer;
+			$tokenizer->tokenize([]);
+		}
+
+		public function testGetTokens() {
+			$this->assertInstanceOf('\HippoPHP\Tokenizer\TokenListIterator', $this->_tokenizer->getTokenList());
 		}
 	}

@@ -4,7 +4,7 @@
 
 	use \HippoPHP\Tokenizer\Token;
 	use \HippoPHP\Tokenizer\TokenListIterator;
-	use \HippoPHP\Tokenizer\InvalidArgumentException;
+	use \HippoPHP\Tokenizer\Exception\InvalidArgumentException;
 
 	class Tokenizer {
 		/**
@@ -14,6 +14,7 @@
 
 		public function __construct() {
 			$this->_tokens = new TokenListIterator;
+			return $this;
 		}
 
 		/**
@@ -24,7 +25,7 @@
 			if ($buffer === null) {
 				return [];
 			} elseif (!is_string($buffer)) {
-				throw new \InvalidArgumentException('Buffer must be a string.');
+				throw new InvalidArgumentException('Buffer must be a string.');
 			}
 
 			$tokenList = [];
@@ -60,6 +61,10 @@
 			return $this->_tokens;
 		}
 
+		/**
+		 * Return the TokenListIterator
+		 * @return \HippoPHP\Tokenizer\TokenListIterator
+		 */
 		public function getTokenList() {
 			return $this->_tokens;
 		}
