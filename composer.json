@@ -1,6 +1,7 @@
 {
     "name": "hippophp/tokenizer",
-    "description": "",
+    "description": "Wrapper around token_get_all",
+    "version": "1.0.0",
     "type": "library",
     "keywords": ["hippophp","tokenizer","token"],
     "homepage": "https://github.com/hippophp/tokenizer",
