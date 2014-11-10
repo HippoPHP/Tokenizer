@@ -40,6 +40,8 @@
 			$this->content = $content;
 			$this->line = $line;
 			$this->column = $column;
+
+			return $this;
 		}
 
 		/**
