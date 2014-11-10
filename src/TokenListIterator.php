@@ -130,20 +130,20 @@
 		}
 
 		/**
-		 * Checks that a position is valid at a given point.
-		 * @param  int $positon
-		 * @return bool
-		 */
-		public function validAtPosition($positon) {
-			return isset($this->_tokens[$positon]);
-		}
-
-		/**
 		 * How many tokens do we have?
 		 * @return int
 		 */
 		public function count() {
 			return count($this->_tokens);
+		}
+
+		/**
+		 * Checks that a position is valid at a given point.
+		 * @param  int $positon
+		 * @return bool
+		 */
+		private function validAtPosition($positon) {
+			return isset($this->_tokens[$positon]);
 		}
 
 		/**
