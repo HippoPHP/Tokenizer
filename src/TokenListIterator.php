@@ -16,9 +16,9 @@
 		private $_position = 0;
 
 		/**
-		 * @var array
+		 * @var null|array
 		 */
-		private $_tokens;
+		private $_tokens = null;
 
 		/**
 		 * Tries to go to a position in the stack.

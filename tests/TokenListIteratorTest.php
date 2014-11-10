@@ -3,7 +3,6 @@
 	namespace HippoPHP\Tokenizer\Tests;
 
 	use \HippoPHP\Tokenizer\Token;
-	use \HippoPHP\Tokenizer\TokenType;
 	use \HippoPHP\Tokenizer\TokenListIterator;
 	use \HippoPHP\Tokenizer\Exception\OutOfBoundsException;
 
@@ -16,10 +15,9 @@
 
 			// Make some tokens.
 			$this->tokens = [
-				new Token(TokenType::TOKEN_OPEN_TAG, '<?php', 1, 1),
-				new Token(TokenType::TOKEN_EOL, "\n", 1, 1),
-				new Token(TokenType::TOKEN_WHITESPACE, "\t", 2, 1),
-				new Token(TokenType::TOKEN_VARIABLE, '$var', 2, 1),
+				new Token(T_OPEN_TAG, '<?php', 1, 1),
+				new Token(T_WHITESPACE, "\t", 2, 1),
+				new Token(T_VARIABLE, '$var', 2, 1),
 			];
 
 			$this->tokenList->setTokens($this->tokens);
@@ -75,22 +73,22 @@
 		}
 
 		public function testSeekToType() {
-			$seekToken = new Token(TokenType::TOKEN_WHITESPACE, "\t", 2, 1);
-			$this->assertEquals($seekToken, $this->tokenList->seekToType(TokenType::TOKEN_WHITESPACE));
+			$seekToken = new Token(T_WHITESPACE, "\t", 2, 1);
+			$this->assertEquals($seekToken, $this->tokenList->seekToType(T_WHITESPACE));
 		}
 
 		public function testSeekBackwards() {
-			$this->tokenList->seek(3);
-			$actualToken = $this->tokenList->seekToType(TokenType::TOKEN_WHITESPACE, TokenListIterator::DIR_BACKWARD);
+			$this->tokenList->seek(2);
+			$actualToken = $this->tokenList->seekToType(T_WHITESPACE, TokenListIterator::DIR_BACKWARD);
 			$this->assertNotNull($actualToken);
-			$this->assertEquals(TokenType::TOKEN_WHITESPACE, $actualToken->getType());
+			$this->assertEquals(T_WHITESPACE, $actualToken->getType());
 		}
 
 		/**
 		 * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
 		 */
 		public function testSeekToNonExistingType() {
-			$this->tokenList->seekToType(TokenType::TOKEN_DOC);
+			$this->tokenList->seekToType(T_OPEN_TAG);
 		}
 
 		/**
@@ -98,7 +96,7 @@
 		 */
 		public function testSeekToNonExistingTypeReset() {
 			try {
-				$this->tokenList->seekToType(TokenType::TOKEN_DOC);
+				$this->tokenList->seekToType(T_OPEN_TAG);
 			} catch (\Exception $e) {
 				$this->assertEquals(0, $this->tokenList->key());
 				throw $e;
@@ -107,17 +105,17 @@
 
 		public function testSkipTypes() {
 			$ignoreTokens = [
-				TokenType::TOKEN_OPEN_TAG,
-				TokenType::TOKEN_EOL,
+				T_OPEN_TAG,
+				T_WHITESPACE,
 			];
 
-			$expectedToken = new Token(TokenType::TOKEN_WHITESPACE, "\t", 2, 1);
+			$expectedToken = new Token(T_VARIABLE, '$var', 2, 1);
 			$this->assertEquals($expectedToken, $this->tokenList->skipTypes($ignoreTokens));
 		}
 
 		public function testSkipNonexistingTypes() {
-			$actualToken = $this->tokenList->skipTypes([TokenType::TOKEN_DOC]);
+			$actualToken = $this->tokenList->skipTypes([T_OPEN_TAG]);
 			$this->assertNotNull($actualToken);
-			$this->assertEquals(TokenType::TOKEN_OPEN_TAG, $actualToken->getType());
+			$this->assertEquals(T_WHITESPACE, $actualToken->getType());
 		}
 	}
