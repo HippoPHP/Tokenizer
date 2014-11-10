@@ -27,15 +27,31 @@
 			}
 
 			$tokenList = [];
+			$parsed = '';
+			$tokenLine = 1;
+			$tokenColumn = 1;
 
-			$tokens = token_get_all($buffer);
-			foreach ($tokens as $token) {
-				$tokenName = is_array($token) ? $token[0] : null;
-				$tokenData = is_array($token) ? $token[1] : $token;
-				$tokenLine = is_array($token) ? $token[2] : 0;
+			foreach (token_get_all($buffer) as $item) {
+				if (is_array($item)) {
+					$tokenName = $item[0];
+					$tokenData = $item[1];
+				} else {
+					$tokenName = null;
+					$tokenData = $item;
+				}
 
-				// TODO: Get the column number.
-				$tokenList[] = new Token($tokenName, $tokenData, $tokenLine, 0);
+				$tokenList[] = new Token($tokenName, $tokenData, $tokenLine, $tokenColumn);
+
+				$parsed .= $tokenData;
+				$lineCount = substr_count($parsed, "\n");
+				if ($lineCount !== 0) {
+					$parsed = substr($parsed, strrpos($parsed, "\n") + 1);
+					$tokenLine += $lineCount;
+					$tokenColumn = strlen($parsed) + 1;
+				} else {
+					$tokenColumn += strlen($parsed);
+					$parsed = '';
+				}
 			}
 
 			$this->_tokens->setTokens($tokenList);
