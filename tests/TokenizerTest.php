@@ -13,11 +13,15 @@
 		}
 
 		public function testTokenize() {
-			$this->_tokenizer->tokenize(
+			$tokenList = $this->_tokenizer->tokenize(
 <<<ETEST
 <?php
 	echo \$var;
 ETEST
 			);
+
+			$this->assertNotNull($tokenList->getTokens());
+			$this->assertTrue($tokenList->count() > 0);
+			$this->assertInstanceOf('\HippoPHP\Tokenizer\TokenListIterator', $tokenList);
 		}
 	}

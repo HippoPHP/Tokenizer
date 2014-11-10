@@ -38,6 +38,8 @@
 				$tokenList[] = new Token($tokenName, $tokenData, $tokenLine, 0);
 			}
 
+			$this->_tokens->setTokens($tokenList);
+
 			return $this->getTokenList();
 		}
 
