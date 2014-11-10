@@ -24,4 +24,13 @@ ETEST
 			$this->assertTrue($tokenList->count() > 0);
 			$this->assertInstanceOf('\HippoPHP\Tokenizer\TokenListIterator', $tokenList);
 		}
+
+		/**
+		 * @setExpectedException \HippoPHP\Tokenizer\Exception\InvalidArgumentException;
+		 */
+		public function testTokenizeInvalidArgument() {
+			new Tokenizer([
+				'<?php echo "Hello";'
+			]);
+		}
 	}
