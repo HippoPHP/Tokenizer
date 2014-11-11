@@ -28,6 +28,12 @@
 		protected $column;
 
 		/**
+		 * Token lexeme.
+		 * @var string
+		 */
+		protected $lexeme;
+
+		/**
 		 * Creates a new Token.
 		 * @param mixed $type
 		 * @param string $content
@@ -40,6 +46,7 @@
 			$this->content = $content;
 			$this->line = $line;
 			$this->column = $column;
+			$this->lexeme = token_name($type);
 
 			return $this;
 		}
@@ -74,6 +81,14 @@
 		 */
 		public function getColumn() {
 			return $this->column;
+		}
+
+		/**
+		 * Returns the token type as a name.
+		 * @return string
+		 */
+		public function getLexeme() {
+			return $this->lexeme;
 		}
 
 		/**
