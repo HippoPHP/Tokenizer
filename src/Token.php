@@ -78,10 +78,14 @@
 
 		/**
 		 * Compares token types.
-		 * @param  string  $tokenType
+		 * @param  mixes  $tokenTypes
 		 * @return boolean
 		 */
-		public function isType($tokenType) {
-			return $this->getType() === $tokenType;
+		public function isType($tokenTypes) {
+			if (is_array($tokenTypes)) {
+				return in_array($this->getType(), $tokenTypes);
+			}
+
+			return $this->getType() === $tokenTypes;
 		}
 	}
