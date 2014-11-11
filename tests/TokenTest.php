@@ -26,4 +26,8 @@
 		public function testGetColumn() {
 			$this->assertEquals(1, $this->token->getColumn());
 		}
+
+		public function testGetLexeme() {
+			$this->assertEquals("T_OPEN_TAG", $this->token->getLexeme());
+		}
 	}
