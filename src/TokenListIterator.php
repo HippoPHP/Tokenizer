@@ -48,15 +48,15 @@
 		}
 
 		/**
-		 * @param string $tokenType
+		 * @param mixed $tokenTypes
 		 * @param int $direction DIR_BACKWARD or DIR_FORWARD
 		 */
-		public function seekToType($tokenType, $direction = self::DIR_FORWARD) {
-			return $this->_safeMove(function() use ($tokenType, $direction) {
+		public function seekToType($tokenTypes, $direction = self::DIR_FORWARD) {
+			return $this->_safeMove(function() use ($tokenTypes, $direction) {
 				$this->_move($direction);
 
-				$this->_moveWithCondition(function() use ($tokenType) {
-					return !$this->current()->isType($tokenType);
+				$this->_moveWithCondition(function() use ($tokenTypes) {
+					return !$this->current()->isType($tokenTypes);
 				}, $direction);
 
 				return $this->current();

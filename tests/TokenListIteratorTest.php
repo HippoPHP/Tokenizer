@@ -77,6 +77,11 @@
 			$this->assertEquals($seekToken, $this->tokenList->seekToType(T_WHITESPACE));
 		}
 
+		public function testSeekToTypeArray() {
+			$seekToken = new Token(T_WHITESPACE, "\t", 2, 1);
+			$this->assertEquals($seekToken, $this->tokenList->seekToType([T_WHITESPACE]));
+		}
+
 		public function testSeekBackwards() {
 			$this->tokenList->seek(2);
 			$actualToken = $this->tokenList->seekToType(T_WHITESPACE, TokenListIterator::DIR_BACKWARD);
