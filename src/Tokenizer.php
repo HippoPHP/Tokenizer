@@ -45,8 +45,9 @@
 				$tokenList[] = new Token($tokenName, $tokenData, $tokenLine, $tokenColumn);
 
 				$parsed .= $tokenData;
-				$lineCount = substr_count($parsed, "\n");
+				$lineCount = preg_match_all('#(\r\n|\r|\n)#', $parsed);
 				if ($lineCount !== 0) {
+					$linePos = preg_match('#(\r\n|\r|\n)#', $parsed);
 					$parsed = substr($parsed, strrpos($parsed, "\n") + 1);
 					$tokenLine += $lineCount;
 					$tokenColumn = strlen($parsed) + 1;
