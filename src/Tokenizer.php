@@ -45,10 +45,10 @@
 				$tokenList[] = new Token($tokenName, $tokenData, $tokenLine, $tokenColumn);
 
 				$parsed .= $tokenData;
-				preg_match('#(\r\n|\r|\n)#', $parsed, $lineCount, PREG_OFFSET_CAPTURE);
+				preg_match('/\A(?:\r\n|\r|\n)/ms', $parsed, $lineCount, PREG_OFFSET_CAPTURE);
 				if (isset($lineCount[0])) {
-					$parsed = substr($parsed, $lineCount[0][1]);
-					$tokenLine += $lineCount[1][1];
+					$parsed = substr($parsed, $lineCount[0][0]);
+					$tokenLine += $lineCount[0][1];
 					$tokenColumn = strlen($parsed) + 1;
 				} else {
 					$tokenColumn += strlen($parsed);
