@@ -15,6 +15,10 @@
 			$this->assertEquals(T_OPEN_TAG, $this->token->getType());
 		}
 
+		public function testToString() {
+			$this->assertEquals('T_OPEN_TAG(376) content: "<?php", line 1, column 1', (string)$this->token);
+		}
+
 		public function testGetContent() {
 			$this->assertEquals('<?php', $this->token->getContent());
 		}
