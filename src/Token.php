@@ -45,11 +45,24 @@
 		}
 
 		/**
-		 * Return the token type.
-		 * @return string
+		 * Returns the token type.
+		 * @return int
 		 */
 		public function getType() {
 			return $this->type;
+		}
+
+		/**
+		 * Return token string representation. Intended to simplify test debugging.
+		 * @return string
+		 */
+		public function __toString() {
+			return sprintf('%s(%d) content: "%s", line %d, column %d',
+				$this->getTypeName(),
+				$this->getType(),
+				addslashes($this->getContent()),
+				$this->getLine(),
+				$this->getColumn());
 		}
 
 		/**
@@ -88,4 +101,21 @@
 
 			return $this->getType() === $tokenTypes;
 		}
+
+		/**
+		 * Returns name of the token type.
+		 * Shouldn't be used outside debugging purposes.
+		 * @return string
+		 */
+		protected function getTypeName() {
+			$result = $this->type;
+			foreach (get_defined_constants() as $name => $value) {
+				if (substr($name, 0, 2) === 'T_' && $value === $this->type) {
+					$result = $name;
+					break;
+				}
+			}
+			return $result;
+		}
+
 	}
