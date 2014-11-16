@@ -88,18 +88,20 @@
 
 		/**
 		 * Sets the next position
-		 * @return int
+		 * @return TokenListIterator
 		 */
-		public function next() {
-			return ++$this->_position;
+		public function &next() {
+			$this->_position++;
+			return $this;
 		}
 
 		/**
 		 * Goes back a position.
-		 * @return int
+		 * @return TokenListIterator
 		 */
-		public function prev() {
-			return --$this->_position;
+		public function &prev() {
+			$this->_position--;
+			return $this;
 		}
 
 		/**
@@ -115,18 +117,20 @@
 
 		/**
 		 * Resets the position of the token stack.
-		 * @return void
+		 * @return TokenListIterator
 		 */
-		public function rewind() {
+		public function &rewind() {
 			$this->_position = 0;
+			return $this;
 		}
 
 		/**
 		 * Moves to the last token
-		 * @return int
+		 * @return TokenListIterator
 		 */
-		public function end() {
+		public function &end() {
 			$this->_position = count($this->_tokens) - 1;
+			return $this;
 		}
 
 		/**
