@@ -7,25 +7,25 @@
 		 * Token type.
 		 * @var string
 		 */
-		protected $type;
+		private $type;
 
 		/**
 		 * Token content.
 		 * @var string
 		 */
-		protected $content;
+		private $content;
 
 		/**
 		 * Token line.
 		 * @var int
 		 */
-		protected $line;
+		private $line;
 
 		/**
 		 * Token column.
 		 * @var int
 		 */
-		protected $column;
+		private $column;
 
 		/**
 		 * Creates a new Token.
