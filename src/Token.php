@@ -62,7 +62,8 @@
 				$this->getType(),
 				addslashes($this->getContent()),
 				$this->getLine(),
-				$this->getColumn());
+				$this->getColumn()
+			);
 		}
 
 		/**
