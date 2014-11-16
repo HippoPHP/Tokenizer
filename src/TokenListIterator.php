@@ -88,19 +88,21 @@
 
 		/**
 		 * Sets the next position
+		 * @param int $places
 		 * @return TokenListIterator
 		 */
-		public function &next() {
-			$this->_position++;
+		public function &next($places = 1) {
+			$this->_position += max(0, $places);
 			return $this;
 		}
 
 		/**
 		 * Goes back a position.
+		 * @param int $places
 		 * @return TokenListIterator
 		 */
-		public function &prev() {
-			$this->_position--;
+		public function &prev($places = 1) {
+			$this->_position -= max(0, $places);
 			return $this;
 		}
 
