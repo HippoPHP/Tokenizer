@@ -8,10 +8,14 @@
 
 	class Tokenizer {
 		/**
-		 * @var TokenListIterator
+		 * @var \HippoPHP\Tokenizer\TokenListIterator
 		 */
 		private $_tokens;
 
+		/**
+		 * Constructor for the Tokenizer.
+		 * @return \HippoPHP\Tokenizer\Tokenizer
+		 */
 		public function __construct() {
 			$this->_tokens = new TokenListIterator;
 			return $this;
