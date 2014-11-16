@@ -132,4 +132,16 @@
 
 			$this->assertEquals(T_VARIABLE, $this->tokenList->current()->getType());
 		}
+
+		public function testNextPlaces() {
+			$this->tokenList->rewind();
+			$this->tokenList->next(2);
+			$this->assertEquals(T_VARIABLE, $this->tokenList->current()->getType());
+		}
+
+		public function testPrevPlaces() {
+			$this->tokenList->end();
+			$this->tokenList->prev(2);
+			$this->assertEquals(T_OPEN_TAG, $this->tokenList->current()->getType());
+		}
 	}
