@@ -92,9 +92,7 @@
 		 * @return TokenListIterator
 		 */
 		public function &next($places = 1) {
-			for ($i=0; $i < $places; $i++) {
-				$this->_position++;
-			}
+			$this->_position += max(0, $places);
 			return $this;
 		}
 
@@ -104,9 +102,7 @@
 		 * @return TokenListIterator
 		 */
 		public function &prev($places = 1) {
-			for ($i=0; $i < $places; $i++) {
-				$this->_position--;
-			}
+			$this->_position -= max(0, $places);
 			return $this;
 		}
 
