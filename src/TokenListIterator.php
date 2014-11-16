@@ -122,6 +122,14 @@
 		}
 
 		/**
+		 * Moves to the last token
+		 * @return int
+		 */
+		public function end() {
+			$this->_position = count($this->_tokens) - 1;
+		}
+
+		/**
 		 * Checks that the token we're looking for does exist.
 		 * @return bool
 		 */

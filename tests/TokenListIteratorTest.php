@@ -123,4 +123,13 @@
 			$this->assertNotNull($actualToken);
 			$this->assertEquals(T_WHITESPACE, $actualToken->getType());
 		}
+
+		public function testEndMethod() {
+			// Move to beginning
+			$this->tokenList->rewind();
+			// Move to the end
+			$this->tokenList->end();
+
+			$this->assertEquals(T_VARIABLE, $this->tokenList->current()->getType());
+		}
 	}
