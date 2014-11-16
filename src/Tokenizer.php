@@ -43,8 +43,14 @@
 
 				$tokenList[] = new Token($tokenName, $tokenData, $tokenLine, $tokenColumn);
 
-				if (preg_match_all("/(\r\n|\n|\r)/", $tokenData, $eolMatches, \PREG_OFFSET_CAPTURE))
-				{
+				$pregMatch = preg_match_all(
+					"/(\r\n|\n|\r)/",
+					$tokenData,
+					$eolMatches,
+					\PREG_OFFSET_CAPTURE
+				);
+
+				if ($pregMatch) {
 					$lineCount = count($eolMatches[0]);
 					$lastEolPosition = end($eolMatches[1])[1];
 					$lastEolLength = strlen(end($eolMatches[1])[0]);
