@@ -73,6 +73,11 @@
 			return $this->_tokens;
 		}
 
+		/**
+		 * Splits a token into name and data.
+		 * @param  mixed $item
+		 * @return array
+		 */
 		private function _splitToken($item) {
 			if (is_array($item)) {
 				$tokenName = $item[0];
