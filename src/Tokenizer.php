@@ -37,13 +37,7 @@
 			$tokenColumn = 1;
 
 			foreach (token_get_all($buffer) as $item) {
-				if (is_array($item)) {
-					$tokenName = $item[0];
-					$tokenData = $item[1];
-				} else {
-					$tokenName = null;
-					$tokenData = $item;
-				}
+				list($tokenName, $tokenData) = $this->_splitToken($item);
 
 				$tokenList[] = new Token($tokenName, $tokenData, $tokenLine, $tokenColumn);
 
@@ -77,5 +71,16 @@
 		 */
 		public function getTokenList() {
 			return $this->_tokens;
+		}
+
+		private function _splitToken($item) {
+			if (is_array($item)) {
+				$tokenName = $item[0];
+				$tokenData = $item[1];
+			} else {
+				$tokenName = null;
+				$tokenData = $item;
+			}
+			return [$tokenName, $tokenData];
 		}
 	}
