@@ -74,8 +74,4 @@ ETEST
 			$tokenizer = new Tokenizer;
 			$tokenizer->tokenize([]);
 		}
-
-		public function testGetTokens() {
-			$this->assertInstanceOf('\HippoPHP\Tokenizer\TokenListIterator', $this->_tokenizer->getTokenList());
-		}
 	}
