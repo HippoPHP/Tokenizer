@@ -8,24 +8,10 @@
 
 	class Tokenizer {
 		/**
-		 * @var \HippoPHP\Tokenizer\TokenListIterator
-		 */
-		private $_tokens;
-
-		/**
-		 * Constructor for the Tokenizer.
-		 * @return \HippoPHP\Tokenizer\Tokenizer
-		 */
-		public function __construct() {
-			$this->_tokens = new TokenListIterator;
-			return $this;
-		}
-
-		/**
 		 * @param string $buffer
-		 * @return array
+		 * @return TokenListIterator
 		 */
-		public function tokenize($buffer) {
+		public static function tokenize($buffer) {
 			if ($buffer === null) {
 				return [];
 			} elseif (!is_string($buffer)) {
@@ -37,7 +23,7 @@
 			$tokenColumn = 1;
 
 			foreach (token_get_all($buffer) as $item) {
-				list($tokenName, $tokenData) = $this->_splitToken($item);
+				list($tokenName, $tokenData) = self::_splitToken($item);
 
 				$tokenList[] = new Token($tokenName, $tokenData, $tokenLine, $tokenColumn);
 
@@ -60,17 +46,7 @@
 				}
 			}
 
-			$this->_tokens->setTokens($tokenList);
-
-			return $this->_tokens;
-		}
-
-		/**
-		 * Return the TokenListIterator
-		 * @return \HippoPHP\Tokenizer\TokenListIterator
-		 */
-		public function getTokenList() {
-			return $this->_tokens;
+			return new TokenListIterator($tokenList);
 		}
 
 		/**
@@ -78,7 +54,7 @@
 		 * @param  mixed $item
 		 * @return array
 		 */
-		private function _splitToken($item) {
+		private static function _splitToken($item) {
 			if (is_array($item)) {
 				$tokenName = $item[0];
 				$tokenData = $item[1];

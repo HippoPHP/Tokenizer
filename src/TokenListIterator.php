@@ -11,6 +11,13 @@
 		const DIR_BACKWARD = 1;
 
 		/**
+		 * @param Token[] $tokenList
+		 */
+		public function __construct(array $tokens = []) {
+			$this->_tokens = $tokens;
+		}
+
+		/**
 		 * @var int
 		 */
 		private $_position = 0;
