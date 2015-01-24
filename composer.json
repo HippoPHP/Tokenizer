@@ -1,47 +1,47 @@
 {
-    "name": "hippophp/tokenizer",
-    "description": "Wrapper around token_get_all",
-    "version": "1.0.0",
-    "type": "library",
-    "keywords": ["hippophp","tokenizer","token"],
-    "homepage": "https://github.com/hippophp/tokenizer",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "James Brooks",
-            "email": "jbrooksuk@me.com",
-            "homepage": "http://james-brooks.uk",
-            "role": "Developer"
-        },
-        {
-            "name": "Marcin Kurczewski",
-            "homepage": "http://sakuya.pl",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0",
-        "ext-tokenizer": "*"
+  "name": "hippophp/tokenizer",
+  "description": "Wrapper around token_get_all",
+  "version": "1.0.0",
+  "type": "library",
+  "keywords": ["hippophp","tokenizer","token"],
+  "homepage": "https://github.com/hippophp/tokenizer",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "James Brooks",
+      "email": "jbrooksuk@me.com",
+      "homepage": "http://james-brooks.uk",
+      "role": "Developer"
     },
-    "require-dev": {
-        "phpunit/phpunit": "~4.3.0",
-        "squizlabs/php_codesniffer": "~1.5.0",
-        "codeclimate/php-test-reporter": "dev-master"
-    },
-    "support": {
-        "wiki": "https://github.com/hippophp/tokenizer/wiki",
-        "source": "https://github.com/hippophp/tokenizer"
-    },
-    "autoload": {
-        "psr-4": {
-            "HippoPHP\\Tokenizer\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "HippoPHP\\Tokenizer\\Tests\\": "tests/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    {
+      "name": "Marcin Kurczewski",
+      "homepage": "http://sakuya.pl",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "ext-tokenizer": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.3.0",
+    "squizlabs/php_codesniffer": "~1.5.0",
+    "codeclimate/php-test-reporter": "dev-master"
+  },
+  "support": {
+    "wiki": "https://github.com/hippophp/tokenizer/wiki",
+    "source": "https://github.com/hippophp/tokenizer"
+  },
+  "autoload": {
+    "psr-4": {
+      "HippoPHP\\Tokenizer\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "HippoPHP\\Tokenizer\\Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
