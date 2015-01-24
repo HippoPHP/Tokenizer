@@ -6,7 +6,7 @@ use HippoPHP\Tokenizer\Token;
 
 class TokenTest extends \PHPUnit_Framework_TestCase
 {
-        protected $token;
+    protected $token;
 
     public function setUp()
     {

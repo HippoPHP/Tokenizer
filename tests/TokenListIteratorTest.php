@@ -8,19 +8,19 @@ use HippoPHP\Tokenizer\TokenListIterator;
 
 class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
 {
-        protected $tokenList;
+    protected $tokenList;
     protected $tokens;
 
     public function setUp()
     {
         $this->tokenList = new TokenListIterator();
 
-            // Make some tokens.
-            $this->tokens = [
-                new Token(T_OPEN_TAG, '<?php', 1, 1),
-                new Token(T_WHITESPACE, "\t", 2, 1),
-                new Token(T_VARIABLE, '$var', 2, 1),
-            ];
+        // Make some tokens.
+        $this->tokens = [
+            new Token(T_OPEN_TAG, '<?php', 1, 1),
+            new Token(T_WHITESPACE, "\t", 2, 1),
+            new Token(T_VARIABLE, '$var', 2, 1),
+        ];
 
         $this->tokenList->setTokens($this->tokens);
     }
@@ -35,13 +35,13 @@ class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(count($this->tokens), $this->tokenList->count());
     }
 
-        /**
-         * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
-         */
-        public function testSeekOutOfRange()
-        {
-            $this->tokenList->seek(999);
-        }
+    /**
+     * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
+     */
+    public function testSeekOutOfRange()
+    {
+        $this->tokenList->seek(999);
+    }
 
     public function testSeekValid()
     {
@@ -72,15 +72,15 @@ class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->tokenList->valid());
     }
 
-        /**
-         * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
-         */
-        public function testGetInvalid()
-        {
-            $this->tokenList->seek(count($this->tokenList) - 1);
-            $this->tokenList->next();
-            $this->tokenList->current();
-        }
+    /**
+     * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
+     */
+    public function testGetInvalid()
+    {
+        $this->tokenList->seek(count($this->tokenList) - 1);
+        $this->tokenList->next();
+        $this->tokenList->current();
+    }
 
     public function testSeekToType()
     {
@@ -102,33 +102,33 @@ class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(T_WHITESPACE, $actualToken->getType());
     }
 
-        /**
-         * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
-         */
-        public function testSeekToNonExistingType()
-        {
-            $this->tokenList->seekToType(T_OPEN_TAG);
-        }
+    /**
+     * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
+     */
+    public function testSeekToNonExistingType()
+    {
+        $this->tokenList->seekToType(T_OPEN_TAG);
+    }
 
-        /**
-         * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
-         */
-        public function testSeekToNonExistingTypeReset()
-        {
-            try {
-                $this->tokenList->seekToType(T_OPEN_TAG);
-            } catch (\Exception $e) {
-                $this->assertEquals(0, $this->tokenList->key());
-                throw $e;
-            }
+    /**
+     * @expectedException \HippoPHP\Tokenizer\Exception\OutOfBoundsException
+     */
+    public function testSeekToNonExistingTypeReset()
+    {
+        try {
+            $this->tokenList->seekToType(T_OPEN_TAG);
+        } catch (\Exception $e) {
+            $this->assertEquals(0, $this->tokenList->key());
+            throw $e;
         }
+    }
 
     public function testSkipTypes()
     {
         $ignoreTokens = [
-                T_OPEN_TAG,
-                T_WHITESPACE,
-            ];
+            T_OPEN_TAG,
+            T_WHITESPACE,
+        ];
 
         $expectedToken = new Token(T_VARIABLE, '$var', 2, 1);
         $this->assertEquals($expectedToken, $this->tokenList->skipTypes($ignoreTokens));
@@ -144,9 +144,9 @@ class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
     public function testEndMethod()
     {
         // Move to beginning
-            $this->tokenList->rewind();
-            // Move to the end
-            $this->tokenList->end();
+        $this->tokenList->rewind();
+        // Move to the end
+        $this->tokenList->end();
 
         $this->assertEquals(T_VARIABLE, $this->tokenList->current()->getType());
     }

@@ -8,7 +8,7 @@ use HippoPHP\Tokenizer\Tokenizer;
 
 class TokenizerTest extends \PHPUnit_Framework_TestCase
 {
-        private $_tokenizer;
+    private $_tokenizer;
 
     public function setUp()
     {
@@ -52,19 +52,19 @@ ETEST
         $tokens = $tokenList->getTokens();
         $this->assertEquals(12, count($tokens));
         $this->assertEquals([
-                    new Token(T_OPEN_TAG, "<?php\n", 1, 1),
-                    new Token(T_WHITESPACE, "\n\t", 2, 1),
-                    new Token(T_LNUMBER, '1', 3, 2),
-                    new Token(T_WHITESPACE, ' ', 3, 3),
-                    new Token(0, '+', 3, 4), //TODO: why is this "0"
-                    new Token(T_WHITESPACE, ' ', 3, 5),
-                    new Token(T_LNUMBER, '2', 3, 6),
-                    new Token(T_WHITESPACE, "\n\n\t", 3, 7),
-                    new Token(0, '+', 5, 2), //TODO: why is this "0"
-                    new Token(T_WHITESPACE, "\n\t", 5, 3),
-                    new Token(T_CONSTANT_ENCAPSED_STRING, '\'test\'', 6, 2),
-                    new Token(T_LNUMBER, '4', 6, 8),
-                ], $tokens);
+            new Token(T_OPEN_TAG, "<?php\n", 1, 1),
+            new Token(T_WHITESPACE, "\n\t", 2, 1),
+            new Token(T_LNUMBER, '1', 3, 2),
+            new Token(T_WHITESPACE, ' ', 3, 3),
+            new Token(0, '+', 3, 4), //TODO: why is this "0"
+            new Token(T_WHITESPACE, ' ', 3, 5),
+            new Token(T_LNUMBER, '2', 3, 6),
+            new Token(T_WHITESPACE, "\n\n\t", 3, 7),
+            new Token(0, '+', 5, 2), //TODO: why is this "0"
+            new Token(T_WHITESPACE, "\n\t", 5, 3),
+            new Token(T_CONSTANT_ENCAPSED_STRING, '\'test\'', 6, 2),
+            new Token(T_LNUMBER, '4', 6, 8),
+        ], $tokens);
     }
 
     public function testTokenizeNullBuffer()
@@ -73,12 +73,12 @@ ETEST
         $this->assertEmpty($tokenizer->tokenize(null));
     }
 
-        /**
-         * @expectedException \HippoPHP\Tokenizer\Exception\InvalidArgumentException
-         */
-        public function testTokenizeInvalidArgument()
-        {
-            $tokenizer = new Tokenizer();
-            $tokenizer->tokenize([]);
-        }
+    /**
+     * @expectedException \HippoPHP\Tokenizer\Exception\InvalidArgumentException
+     */
+    public function testTokenizeInvalidArgument()
+    {
+        $tokenizer = new Tokenizer();
+        $tokenizer->tokenize([]);
+    }
 }
