@@ -1,9 +1,10 @@
 <?php
 
-	namespace HippoPHP\Tokenizer\Exception;
+namespace HippoPHP\Tokenizer\Exception;
 
-	/**
-	 * ExceptionInterface.
-	 */
-	interface ExceptionInterface {
-	}
+/**
+     * ExceptionInterface.
+     */
+    interface ExceptionInterface
+    {
+    }
