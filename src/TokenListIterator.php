@@ -32,7 +32,7 @@ class TokenListIterator implements SeekableIterator, Countable
     /**
      * Tries to go to a position in the stack.
      *
-     * @param  int $position
+     * @param int $position
      *
      * @return void
      */
@@ -63,7 +63,7 @@ class TokenListIterator implements SeekableIterator, Countable
 
     /**
      * @param mixed $tokenTypes
-     * @param int $direction DIR_BACKWARD or DIR_FORWARD
+     * @param int   $direction  DIR_BACKWARD or DIR_FORWARD
      */
     public function seekToType($tokenTypes, $direction = self::DIR_FORWARD)
     {
@@ -82,7 +82,7 @@ class TokenListIterator implements SeekableIterator, Countable
      * Good for ignoring whitespace tokens.
      *
      * @param array $tokenTypes
-     * @param int $direction DIR_BACKWARD or DIR_FORWARD
+     * @param int   $direction  DIR_BACKWARD or DIR_FORWARD
      */
     public function skipTypes($tokenTypes, $direction = self::DIR_FORWARD)
     {
@@ -194,7 +194,7 @@ class TokenListIterator implements SeekableIterator, Countable
     /**
      * Checks that a position is valid at a given point.
      *
-     * @param  int $positon
+     * @param int $positon
      *
      * @return bool
      */
@@ -206,8 +206,8 @@ class TokenListIterator implements SeekableIterator, Countable
     /**
      * Moves the positon based on a direction, until the given condition is fulfilled.
      *
-     * @param  callable $condition
-     * @param  int   $direction
+     * @param callable $condition
+     * @param int      $direction
      *
      * @return void
      */
@@ -225,7 +225,7 @@ class TokenListIterator implements SeekableIterator, Countable
     /**
      * Moves the positon based on a direction.
      *
-     * @param  int   $direction
+     * @param int $direction
      *
      * @return void
      */

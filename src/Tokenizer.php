@@ -53,7 +53,7 @@ class Tokenizer
     /**
      * Splits a token into name and data.
      *
-     * @param  mixed $item
+     * @param mixed $item
      *
      * @return array
      */

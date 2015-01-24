@@ -35,10 +35,10 @@ class Token
     /**
      * Creates a new Token.
      *
-     * @param mixed $type
+     * @param mixed  $type
      * @param string $content
-     * @param int $line
-     * @param int $column
+     * @param int    $line
+     * @param int    $column
      *
      * @return Token
      */
@@ -111,7 +111,7 @@ class Token
     /**
      * Compares token types.
      *
-     * @param  mixes  $tokenTypes
+     * @param mixes $tokenTypes
      *
      * @return boolean
      */
