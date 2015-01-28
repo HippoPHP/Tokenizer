@@ -29,7 +29,7 @@ class Tokenizer
             $tokenList[] = new Token($tokenName, $tokenData, $tokenLine, $tokenColumn);
 
             $pregMatch = preg_match_all(
-                "/(\r\n|\n|\r)/",
+                '/(\r\n|\n|\r)/',
                 $tokenData,
                 $eolMatches,
                 \PREG_OFFSET_CAPTURE
