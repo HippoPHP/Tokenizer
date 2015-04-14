@@ -40,21 +40,21 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 
     public function testIsKeyword()
     {
-        $token = new Token(T_GLOBAL, "global", 1, 1);
+        $token = new Token(T_GLOBAL, 'global', 1, 1);
 
         $this->assertTrue($token->isKeyword());
     }
 
     public function testIsComment()
     {
-        $token = new Token(T_COMMENT, "// Foo, bar, baz", 1, 1);
+        $token = new Token(T_COMMENT, '// Foo, bar, baz', 1, 1);
 
         $this->assertTrue($token->isComment());
     }
 
     public function testIsNativeConstant()
     {
-        $token = new Token(T_CONST, "true", 1, 1);
+        $token = new Token(T_CONST, 'true', 1, 1);
 
         $this->assertTrue($token->isNativeConstant());
     }

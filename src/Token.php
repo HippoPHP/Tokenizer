@@ -113,7 +113,7 @@ class Token
      *
      * @param mixed $tokenTypes
      *
-     * @return boolean
+     * @return bool
      */
     public function isType($tokenTypes)
     {
@@ -127,7 +127,7 @@ class Token
     /**
      * Determines whether a token is a comment.
      *
-     * @return boolean
+     * @return bool
      */
     public function isComment()
     {
@@ -139,7 +139,7 @@ class Token
     /**
      * Determines whether a token is a native constant.
      *
-     * @return boolean
+     * @return bool
      */
     public function isNativeConstant()
     {
@@ -151,7 +151,7 @@ class Token
     /**
      * Determines whether a token is a keyword.
      *
-     * @return boolean
+     * @return bool
      */
     public function isKeyword()
     {

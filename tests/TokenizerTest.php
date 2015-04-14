@@ -2,7 +2,6 @@
 
 namespace HippoPHP\Tokenizer\tests;
 
-use HippoPHP\Tokenizer\Exception\InvalidArgumentException;
 use HippoPHP\Tokenizer\Token;
 use HippoPHP\Tokenizer\Tokenizer;
 
