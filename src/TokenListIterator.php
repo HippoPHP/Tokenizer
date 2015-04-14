@@ -12,22 +12,22 @@ class TokenListIterator implements SeekableIterator, Countable
     const DIR_BACKWARD = 1;
 
     /**
-     * @param Token[] $tokenList
+     * @var int
+     */
+    private $position = 0;
+
+    /**
+     * @var null|\HippoPHP\Tokenizer\Token[]
+     */
+    private $tokens = null;
+
+    /**
+     * @param \HippoPHP\Tokenizer\Token[] $tokenList
      */
     public function __construct(array $tokens = [])
     {
-        $this->_tokens = $tokens;
+        $this->tokens = $tokens;
     }
-
-    /**
-     * @var int
-     */
-    private $_position = 0;
-
-    /**
-     * @var null|array
-     */
-    private $_tokens = null;
 
     /**
      * Tries to go to a position in the stack.
@@ -38,39 +38,41 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function seek($position)
     {
-        if (!isset($this->_tokens[$position])) {
-            throw $this->_getOutOfBoundsException($position);
+        if (!isset($this->tokens[$position])) {
+            throw $this->getOutOfBoundsException($position);
         }
 
-        $this->_position = $position;
+        $this->position = $position;
     }
 
     /**
-     * @param Token[] $tokens
+     * @param \HippoPHP\Tokenizer\Token[] $tokens
      */
     public function setTokens(array $tokens)
     {
-        $this->_tokens = $tokens;
+        $this->tokens = $tokens;
     }
 
     /**
-     * @return Token[] $tokens
+     * @return \HippoPHP\Tokenizer\Token[] $tokens
      */
     public function getTokens()
     {
-        return $this->_tokens;
+        return $this->tokens;
     }
 
     /**
      * @param mixed $tokenTypes
      * @param int   $direction  DIR_BACKWARD or DIR_FORWARD
+     *
+     * @return mixed
      */
     public function seekToType($tokenTypes, $direction = self::DIR_FORWARD)
     {
-        return $this->_safeMove(function () use ($tokenTypes, $direction) {
-            $this->_move($direction);
+        return $this->safeMove(function () use ($tokenTypes, $direction) {
+            $this->move($direction);
 
-            $this->_moveWithCondition(function () use ($tokenTypes) {
+            $this->moveWithCondition(function () use ($tokenTypes) {
                 return !$this->current()->isType($tokenTypes);
             }, $direction);
 
@@ -79,15 +81,17 @@ class TokenListIterator implements SeekableIterator, Countable
     }
 
     /**
-     * Good for ignoring whitespace tokens.
+     * Traverse the token tree passing any ignored types.
      *
      * @param array $tokenTypes
      * @param int   $direction  DIR_BACKWARD or DIR_FORWARD
+     *
+     * @return mixed
      */
     public function skipTypes($tokenTypes, $direction = self::DIR_FORWARD)
     {
-        return $this->_safeMove(function () use ($tokenTypes, $direction) {
-            $this->_moveWithCondition(function () use ($tokenTypes) {
+        return $this->safeMove(function () use ($tokenTypes, $direction) {
+            $this->moveWithCondition(function () use ($tokenTypes) {
                 return in_array($this->current()->getType(), $tokenTypes);
             }, $direction);
 
@@ -102,7 +106,7 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function key()
     {
-        return $this->_position;
+        return $this->position;
     }
 
     /**
@@ -114,7 +118,7 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function &next($places = 1)
     {
-        $this->_position += max(0, $places);
+        $this->position += max(0, $places);
 
         return $this;
     }
@@ -128,7 +132,7 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function &prev($places = 1)
     {
-        $this->_position -= max(0, $places);
+        $this->position -= max(0, $places);
 
         return $this;
     }
@@ -140,11 +144,11 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function current()
     {
-        if (!isset($this->_tokens[$this->_position])) {
-            throw $this->_getOutOfBoundsException();
+        if (!isset($this->tokens[$this->position])) {
+            throw $this->getOutOfBoundsException();
         }
 
-        return $this->_tokens[$this->_position];
+        return $this->tokens[$this->position];
     }
 
     /**
@@ -154,7 +158,7 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function &rewind()
     {
-        $this->_position = 0;
+        $this->position = 0;
 
         return $this;
     }
@@ -166,7 +170,7 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function &end()
     {
-        $this->_position = count($this->_tokens) - 1;
+        $this->position = count($this->tokens) - 1;
 
         return $this;
     }
@@ -178,7 +182,7 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function valid()
     {
-        return $this->validAtPosition($this->_position);
+        return $this->validAtPosition($this->position);
     }
 
     /**
@@ -188,7 +192,7 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function count()
     {
-        return count($this->_tokens);
+        return count($this->tokens);
     }
 
     /**
@@ -200,7 +204,7 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     private function validAtPosition($positon)
     {
-        return isset($this->_tokens[$positon]);
+        return isset($this->tokens[$positon]);
     }
 
     /**
@@ -211,13 +215,13 @@ class TokenListIterator implements SeekableIterator, Countable
      *
      * @return void
      */
-    private function _moveWithCondition(callable $condition, $direction = self::DIR_FORWARD)
+    private function moveWithCondition(callable $condition, $direction = self::DIR_FORWARD)
     {
         while ($condition()) {
-            $this->_move($direction);
+            $this->move($direction);
 
             if (!$this->valid()) {
-                throw $this->_getOutOfBoundsException();
+                throw $this->getOutOfBoundsException();
             }
         }
     }
@@ -229,7 +233,7 @@ class TokenListIterator implements SeekableIterator, Countable
      *
      * @return void
      */
-    private function _move($direction)
+    private function move($direction)
     {
         if ($direction === self::DIR_FORWARD) {
             $this->next();
@@ -243,14 +247,14 @@ class TokenListIterator implements SeekableIterator, Countable
      *
      * @param int|null $position
      *
-     * @return OutOfBoundsException
+     * @return \HippoPHP\Tokenizer\Exception\OutOfBoundsException
      */
-    private function _getOutOfBoundsException($position = null)
+    private function getOutOfBoundsException($position = null)
     {
         return new OutOfBoundsException(
             sprintf(
                 'Invalid token position (%d)',
-                $position !== null ? $position : $this->_position
+                $position !== null ? $position : $this->position
             )
         );
     }
@@ -262,13 +266,13 @@ class TokenListIterator implements SeekableIterator, Countable
      *
      * @return mixed
      */
-    private function _safeMove(callable $moveAction)
+    private function safeMove(callable $moveAction)
     {
-        $oldPosition = $this->_position;
+        $oldPosition = $this->position;
         try {
             return $moveAction();
         } catch (OutOfBoundsException $e) {
-            $this->_position = $oldPosition;
+            $this->position = $oldPosition;
             throw $e;
         }
     }

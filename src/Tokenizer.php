@@ -24,7 +24,7 @@ class Tokenizer
         $tokenColumn = 1;
 
         foreach (token_get_all($buffer) as $item) {
-            list($tokenName, $tokenData) = self::_splitToken($item);
+            list($tokenName, $tokenData) = self::splitToken($item);
 
             $tokenList[] = new Token($tokenName, $tokenData, $tokenLine, $tokenColumn);
 
@@ -57,7 +57,7 @@ class Tokenizer
      *
      * @return array
      */
-    private static function _splitToken($item)
+    private static function splitToken($item)
     {
         if (is_array($item)) {
             $tokenName = $item[0];
