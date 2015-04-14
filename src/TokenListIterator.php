@@ -76,7 +76,7 @@ class TokenListIterator implements SeekableIterator, Countable
                 return !$this->current()->isType($tokenTypes);
             }, $direction);
 
-            return $this->current();
+            return $this;
         });
     }
 
@@ -84,7 +84,7 @@ class TokenListIterator implements SeekableIterator, Countable
      * Traverse the token tree passing any ignored types.
      *
      * @param array $tokenTypes
-     * @param int   $direction  DIR_BACKWARD or DIR_FORWARD
+     * @param int   $direction
      *
      * @return mixed
      */
@@ -92,11 +92,23 @@ class TokenListIterator implements SeekableIterator, Countable
     {
         return $this->safeMove(function () use ($tokenTypes, $direction) {
             $this->moveWithCondition(function () use ($tokenTypes) {
-                return in_array($this->current()->getType(), $tokenTypes);
+                return ! in_array($this->current()->getType(), $tokenTypes);
             }, $direction);
 
-            return $this->current();
+            return $this;
         });
+    }
+
+    /**
+     * Skips to the next non-whitespace token.
+     *
+     * @param int $direction
+     *
+     * @return mixed
+     */
+    public function skipToNextNonWhitespace($direction = self::DIR_FORWARD)
+    {
+        return $this->skipTypes([T_WHITESPACE], $direction)->next();
     }
 
     /**
@@ -224,6 +236,8 @@ class TokenListIterator implements SeekableIterator, Countable
                 throw $this->getOutOfBoundsException();
             }
         }
+
+        return $this;
     }
 
     /**
@@ -236,9 +250,9 @@ class TokenListIterator implements SeekableIterator, Countable
     private function move($direction)
     {
         if ($direction === self::DIR_FORWARD) {
-            $this->next();
+            return $this->next();
         } elseif ($direction === self::DIR_BACKWARD) {
-            $this->prev();
+            return $this->prev();
         }
     }
 
