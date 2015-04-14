@@ -18,7 +18,7 @@ class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
         $this->tokens = [
             new Token(T_OPEN_TAG, '<?php', 1, 1),
             new Token(T_WHITESPACE, "\t", 2, 1),
-            new Token(T_VARIABLE, '$var', 2, 1),
+            new Token(T_VARIABLE, '$var', 2, 2),
         ];
 
         $this->tokenList->setTokens($this->tokens);
@@ -63,6 +63,14 @@ class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->tokenList->key());
     }
 
+    /**
+     * @expectedException \HippoPHP\Tokenizer\Exception\InvalidArgumentException
+     */
+    public function testMoveAroundInvalid()
+    {
+        $this->tokenList->move(3);
+    }
+
     public function testIsValid()
     {
         $this->assertTrue($this->tokenList->valid());
@@ -84,19 +92,19 @@ class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
     public function testSeekToType()
     {
         $seekToken = new Token(T_WHITESPACE, "\t", 2, 1);
-        $this->assertEquals($seekToken, $this->tokenList->seekToType(T_WHITESPACE));
+        $this->assertEquals($seekToken, $this->tokenList->seekToType(T_WHITESPACE)->current());
     }
 
     public function testSeekToTypeArray()
     {
         $seekToken = new Token(T_WHITESPACE, "\t", 2, 1);
-        $this->assertEquals($seekToken, $this->tokenList->seekToType([T_WHITESPACE]));
+        $this->assertEquals($seekToken, $this->tokenList->seekToType([T_WHITESPACE])->current());
     }
 
     public function testSeekBackwards()
     {
         $this->tokenList->seek(2);
-        $actualToken = $this->tokenList->seekToType(T_WHITESPACE, TokenListIterator::DIR_BACKWARD);
+        $actualToken = $this->tokenList->seekToType(T_WHITESPACE, TokenListIterator::DIR_BACKWARD)->current();
         $this->assertNotNull($actualToken);
         $this->assertEquals(T_WHITESPACE, $actualToken->getType());
     }
@@ -129,15 +137,22 @@ class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
             T_WHITESPACE,
         ];
 
-        $expectedToken = new Token(T_VARIABLE, '$var', 2, 1);
-        $this->assertEquals($expectedToken, $this->tokenList->skipTypes($ignoreTokens));
+        $expectedToken = new Token(T_VARIABLE, '$var', 2, 2);
+        $this->assertEquals($expectedToken, $this->tokenList->skipTypes($ignoreTokens)->current());
     }
 
     public function testSkipNonexistingTypes()
     {
-        $actualToken = $this->tokenList->skipTypes([T_OPEN_TAG]);
+        $actualToken = $this->tokenList->skipTypes([T_OPEN_TAG])->current();
         $this->assertNotNull($actualToken);
         $this->assertEquals(T_WHITESPACE, $actualToken->getType());
+    }
+
+    public function testSkipToNextNonWhitespace()
+    {
+        $actualToken = $this->tokenList->skipToNextNonWhitespace()->current();
+        $this->assertNotNull($actualToken);
+        $this->assertEquals(T_VARIABLE, $actualToken->getType());
     }
 
     public function testEndMethod()

@@ -3,6 +3,7 @@
 namespace HippoPHP\Tokenizer;
 
 use Countable;
+use HippoPHP\Tokenizer\Exception\InvalidArgumentException;
 use HippoPHP\Tokenizer\Exception\OutOfBoundsException;
 use SeekableIterator;
 
@@ -92,7 +93,7 @@ class TokenListIterator implements SeekableIterator, Countable
     {
         return $this->safeMove(function () use ($tokenTypes, $direction) {
             $this->moveWithCondition(function () use ($tokenTypes) {
-                return ! in_array($this->current()->getType(), $tokenTypes);
+                return in_array($this->current()->getType(), $tokenTypes);
             }, $direction);
 
             return $this;
@@ -108,7 +109,13 @@ class TokenListIterator implements SeekableIterator, Countable
      */
     public function skipToNextNonWhitespace($direction = self::DIR_FORWARD)
     {
-        return $this->skipTypes([T_WHITESPACE], $direction)->next();
+        return $this->safeMove(function () use ($direction) {
+            $this->moveWithCondition(function () {
+                return ! in_array($this->current()->getType(), [T_WHITESPACE], true);
+            }, $direction);
+
+            return $this;
+        })->next();
     }
 
     /**
@@ -247,13 +254,17 @@ class TokenListIterator implements SeekableIterator, Countable
      *
      * @return void
      */
-    private function move($direction)
+    public function move($direction)
     {
         if ($direction === self::DIR_FORWARD) {
             return $this->next();
         } elseif ($direction === self::DIR_BACKWARD) {
             return $this->prev();
         }
+
+        throw new InvalidArgumentException(
+            sprintf("Unknown direction %s", $direction)
+        );
     }
 
     /**
