@@ -111,7 +111,7 @@ class TokenListIterator implements SeekableIterator, Countable
     {
         return $this->safeMove(function () use ($direction) {
             $this->moveWithCondition(function () {
-                return ! in_array($this->current()->getType(), [T_WHITESPACE], true);
+                return $this->current()->getType() !== T_WHITESPACE;
             }, $direction);
 
             return $this;
