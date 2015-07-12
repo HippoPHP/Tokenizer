@@ -262,9 +262,7 @@ class TokenListIterator implements SeekableIterator, Countable
             return $this->prev();
         }
 
-        throw new InvalidArgumentException(
-            sprintf("Unknown direction %s", $direction)
-        );
+        throw new InvalidArgumentException(sprintf('Unknown direction %s', $direction));
     }
 
     /**
@@ -277,10 +275,7 @@ class TokenListIterator implements SeekableIterator, Countable
     private function getOutOfBoundsException($position = null)
     {
         return new OutOfBoundsException(
-            sprintf(
-                'Invalid token position (%d)',
-                $position !== null ? $position : $this->position
-            )
+            sprintf('Invalid token position (%d)', $position !== null ? $position : $this->position)
         );
     }
 
