@@ -4,19 +4,16 @@
     "version": "1.0.0",
     "type": "library",
     "keywords": ["hippophp","tokenizer","token"],
-    "homepage": "https://github.com/hippophp/tokenizer",
+    "homepage": "https://github.com/HippoPHP/Tokenizer",
     "license": "MIT",
     "authors": [
         {
             "name": "James Brooks",
-            "email": "jbrooksuk@me.com",
-            "homepage": "https://james-brooks.uk",
-            "role": "Developer"
+            "email": "james@alt-three.com"
         },
         {
             "name": "Marcin Kurczewski",
-            "homepage": "http://sakuya.pl",
-            "role": "Developer"
+            "homepage": "http://sakuya.pl"
         }
     ],
     "require": {
