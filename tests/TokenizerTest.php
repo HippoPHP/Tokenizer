@@ -1,6 +1,6 @@
 <?php
 
-namespace HippoPHP\Tokenizer\tests;
+namespace HippoPHP\Tests\Tokenizer;
 
 use HippoPHP\Tokenizer\Token;
 use HippoPHP\Tokenizer\Tokenizer;

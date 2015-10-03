@@ -36,7 +36,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "HippoPHP\\Tokenizer\\Tests\\": "tests/"
+            "HippoPHP\\Tests\\Tokenizer\\": "tests/"
         }
     },
     "extra": {
