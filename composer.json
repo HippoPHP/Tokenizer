@@ -1,7 +1,6 @@
 {
     "name": "hippophp/tokenizer",
     "description": "Wrapper around token_get_all",
-    "version": "1.0.0",
     "type": "library",
     "keywords": ["hippophp","tokenizer","token"],
     "homepage": "https://github.com/HippoPHP/Tokenizer",
@@ -17,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
         "ext-tokenizer": "*"
     },
     "require-dev": {
@@ -39,11 +38,14 @@
             "HippoPHP\\Tests\\Tokenizer\\": "tests/"
         }
     },
+    "config": {
+        "preferred-install": "dist"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": false
+    "prefer-stable": true
 }

@@ -13,10 +13,10 @@ Tokenizer is a wrapper around the `token_get_all` function. It's built up of thr
 2. `TokenListIterator` - Implements `SeekableIterator` and `Countable` with extra methods to allow easy moving through tokens.
 3. `Tokenizer` - Calls `token_get_all` on the source, turns each result into a `Token` representation and returns a `TokenListIterator` object.
 
-# Installation
+## Installation
 
 You can install Tokenizer by adding `hippophp/tokenizer` to your `composer.json` file.
 
-# License
+## License
 
-[MIT](/LICENSE.md)
+HippoPHP Tokenizer is licensed under [The MIT License (MIT)](/LICENSE)
