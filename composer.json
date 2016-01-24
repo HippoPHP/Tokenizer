@@ -16,13 +16,11 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=5.5.9",
         "ext-tokenizer": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.4",
-        "squizlabs/php_codesniffer": "~2.2",
-        "codeclimate/php-test-reporter": "dev-master"
+        "phpunit/phpunit": "^4.8|^5.0"
     },
     "support": {
         "wiki": "https://github.com/hippophp/tokenizer/wiki",
