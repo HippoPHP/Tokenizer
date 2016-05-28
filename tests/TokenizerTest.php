@@ -22,9 +22,9 @@ class TokenizerTest extends \PHPUnit_Framework_TestCase
     public function testTokenize()
     {
         $tokenList = $this->_tokenizer->tokenize(
-<<<ETEST
+<<<'ETEST'
 <?php
-	echo \$var;
+	echo $var;
 ETEST
             );
 
@@ -36,7 +36,7 @@ ETEST
     public function testColumnAndEol()
     {
         $tokenList = $this->_tokenizer->tokenize(
-<<<ETEST
+<<<'ETEST'
 <?php
 
 	1 + 2
