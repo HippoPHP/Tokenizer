@@ -126,6 +126,7 @@ class TokenListIteratorTest extends \PHPUnit_Framework_TestCase
             $this->tokenList->seekToType(T_OPEN_TAG);
         } catch (\Exception $e) {
             $this->assertEquals(0, $this->tokenList->key());
+
             throw $e;
         }
     }

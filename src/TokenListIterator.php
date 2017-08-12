@@ -289,10 +289,12 @@ class TokenListIterator implements SeekableIterator, Countable
     private function safeMove(callable $moveAction)
     {
         $oldPosition = $this->position;
+
         try {
             return $moveAction();
         } catch (OutOfBoundsException $e) {
             $this->position = $oldPosition;
+
             throw $e;
         }
     }
